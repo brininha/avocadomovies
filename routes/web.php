@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContatoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,5 @@ Route::get('/sobre', function () {
 });
 
 Route::get('/', 'App\Http\Controllers\FilmeController@index');
+
+Route::post('/enviar-contato', [ContatoController::class, 'insert']);
