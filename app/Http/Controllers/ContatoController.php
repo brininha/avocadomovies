@@ -8,11 +8,7 @@ use App\Models\Contato;
 
 class ContatoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         //
@@ -24,11 +20,6 @@ class ContatoController extends Controller
         return $contato;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -56,23 +47,11 @@ class ContatoController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
@@ -115,5 +94,26 @@ class ContatoController extends Controller
             'message' => 'Dados alterados com sucesso',
             'code' => 200,
         ]);
+    }
+
+    public function insert(Request $request) {
+        $request->validate([
+            'nomeContato' => 'required|string|max:255',
+            'emailContato' => 'required|email|max:255',
+            'telefoneContato' => 'nullable|string|max:20',
+            'assuntoContato' => 'required|string|max:255',
+            'mensagemContato' => 'required|string',
+        ]);
+
+        $contato = new Contato();
+        $contato->nomeContato = $request->nomeContato;
+        $contato->emailContato = $request->emailContato;
+        $contato->telefoneContato = $request->telefoneContato;
+        $contato->assuntoContato = $request->assuntoContato;
+        $contato->mensagemContato = $request->mensagemContato;
+        
+        $contato->save();
+
+        return redirect()->back()->with('success', 'Contato enviado com sucesso!');
     }
 }
