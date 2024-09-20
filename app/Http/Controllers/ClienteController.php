@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -8,121 +7,70 @@ use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function read()
     {
-                
+        $usuarios = Cliente::all()->sortBy('nomeCliente');
+        return view('admin/usuarios', compact('usuarios'));
     }
-
-    public function read() 
-    {
-        $cliente = Cliente::all();
-        return $cliente;
-    }
-
-    public function postCliente(Request $request)
-    {
-        $cliente = new Cliente();
-        $cliente->nomeCliente = $request->nomeCliente;
-        $cliente->emailCliente = $request->emailCliente;
-        $cliente->telefoneCliente = $request->telefoneCliente;
-        $cliente->senhaCliente = $request->senhaCliente;
-        $cliente->save();
-        return redirect('./cadastro')->with('status', 'Cadastro feito com sucesso');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $cliente = new Cliente();
-        $cliente->nomeCliente = $request->nomeCliente;
-        $cliente->emailCliente = $request->emailCliente;
-        $cliente->telefoneCliente = $request->telefoneCliente;
-        $cliente->senhaCliente = $request->senhaCliente;
-        $cliente->save();
-
-        return response()->json([
-            'message' => 'Dados inseridos com sucesso',
-            'code' => 200,
+        // Validação de dados
+        $validated = $request->validate([
+            'nomeCliente' => 'required|string|max:255',
+            'emailCliente' => 'required|email|unique:tbCliente,emailCliente',
+            'telefoneCliente' => 'required|string|max:20',
+            'senhaCliente' => 'required|string|min:6',
         ]);
+
+        try {
+            $cliente = new Cliente();
+            $cliente->nomeCliente = $validated['nomeCliente'];
+            $cliente->emailCliente = $validated['emailCliente'];
+            $cliente->telefoneCliente = $validated['telefoneCliente'];
+            $cliente->senhaCliente = bcrypt($validated['senhaCliente']); // Criptografando a senha
+            $cliente->save();
+
+            return redirect()->back()->with('message', 'Cadastro feito com sucesso! 🎉');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Erro ao criar o usuário!' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        Cliente::where('idCliente', $id)->update([
-            'nomeCliente' => $request->nomeCliente,
-            'emailCliente' => $request->emailCliente,
-            'telefoneCliente' => $request->telefoneCliente,
-            'senhaCliente' => $request->senhaCliente,
+        // Validação de dados
+        $validated = $request->validate([
+            'nomeCliente' => 'required|string|max:255',
+            'emailCliente' => 'required|email|unique:clientes,emailCliente,' . $id . ',idCliente',
+            'telefoneCliente' => 'required|string|max:20',
+            'senhaCliente' => 'nullable|string|min:6',
         ]);
 
-        return response()->json([
-            'message' => 'Dados alterados com sucesso',
-            'code' => 200,
-        ]);
+        try {
+            Cliente::where('idCliente', $id)->update([
+                'nomeCliente' => $validated['nomeCliente'],
+                'emailCliente' => $validated['emailCliente'],
+                'telefoneCliente' => $validated['telefoneCliente'],
+                'senhaCliente' => $validated['senhaCliente'] ? bcrypt($validated['senhaCliente']) : Cliente::find($id)->senhaCliente,
+            ]);
+
+            return response()->json([
+                'message' => 'Cliente atualizado com sucesso!',
+                'code' => 200,
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Erro ao criar o usuário: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        Cliente::where('idCliente', $id)->delete();
-
-        return response()->json([
-            'message' => 'Dados excluídos com sucesso',
-            'code' => 200,
+        Cliente::where('idCliente', $id)->update([
+            'excluido' => 1,
         ]);
+
+        return redirect()->back()->with('message', 'Usuário excluído com sucesso!');
     }
 }
+
+?>
