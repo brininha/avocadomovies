@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\Auth;
 
 class ClienteController extends Controller
 {
@@ -70,6 +71,36 @@ class ClienteController extends Controller
         ]);
 
         return redirect()->back()->with('message', 'Usuário excluído com sucesso!');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'emailCliente' => ['required', 'email'],
+            'senhaCliente' => ['required'],
+        ]);
+
+        $cliente = Cliente::where('emailCliente', $request->emailCliente)->first();
+    
+        // Tenta login com emailCliente e senhaCliente
+        if (Auth::attempt(['emailCliente' => $request->emailCliente, 'password' => $request->senhaCliente])) {
+            // Regenera a sessão para evitar ataques de fixação de sessão
+            $request->session()->regenerate();
+    
+            // Redireciona para a página pretendida (admin)
+            if ($cliente->tipoCliente == 1) {
+                return redirect()->intended('admin');
+            } else {
+                return back()->with([
+                    'message' => 'Área do usuário em desenvolvimento.',
+                ]);
+            }
+        }
+    
+        // Retorna erro se as credenciais forem inválidas
+        return back()->withErrors([
+            'emailCliente' => 'As credenciais fornecidas não correspondem aos nossos registros.',
+        ])->onlyInput('emailCliente');    
     }
 }
 
