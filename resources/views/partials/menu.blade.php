@@ -8,7 +8,7 @@
                     <a class="menu-list-item-text" href="/">Home</a>
                 </li>
                 <li class="menu-list-item">
-                    <a class="menu-list-item-text" href="#movie-container">Filmes</a>
+                    <a class="menu-list-item-text" href="/#movie-container">Filmes</a>
                 </li>
                 <li class="menu-list-item">
                     <a class="menu-list-item-text" href="/">Combos</a>
@@ -17,7 +17,7 @@
                     <a class="menu-list-item-text" id="abrirContato">Contato</a>
                 </li>
                 <li class="menu-list-item">
-                    <a class="menu-list-item-text" href="/login">Login</a>
+                    <a class="menu-list-item-text" id="abrirLogin">Login</a>
                 </li>
                 <li class="menu-list-item">
                     <a class="menu-list-item-text" id="abrirCadastro">Cadastro</a>
