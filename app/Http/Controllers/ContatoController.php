@@ -8,31 +8,18 @@ use App\Models\Contato;
 
 class ContatoController extends Controller
 {
-    
-    public function index()
-    {
-        //
-    }
-
+    // Método para obter todos os contatos
     public function read()
     {
         $contato = Contato::all();
-        return $contato;
+        return response()->json($contato);
     }
 
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Método para salvar novos dados de contato
     public function store(Request $request)
     {
+        $this->validateContato($request);
+
         $contato = new Contato();
         $contato->nomeContato = $request->nomeContato;
         $contato->emailContato = $request->emailContato;
@@ -41,31 +28,14 @@ class ContatoController extends Controller
         $contato->mensagemContato = $request->mensagemContato;
         $contato->save();
 
-        return response()->json([
-            'message' => 'Dados inseridos com sucesso',
-            'code' => 200,
-        ]);
+        return redirect()->back()->with('message', 'Contato enviado com sucesso!');
     }
 
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Método para atualizar um contato existente
     public function update(Request $request, $id)
     {
+        $this->validateContato($request);
+
         Contato::where('idContato', $id)->update([
             'nomeContato' => $request->nomeContato,
             'emailContato' => $request->emailContato,
@@ -80,30 +50,21 @@ class ContatoController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Método para excluir um contato
     public function destroy($id)
     {
         Contato::where('idContato', $id)->delete();
 
         return response()->json([
-            'message' => 'Dados alterados com sucesso',
+            'message' => 'Dados excluídos com sucesso',
             'code' => 200,
         ]);
     }
 
-    public function insert(Request $request) {
-        $request->validate([
-            'nomeContato' => 'required|string|max:255',
-            'emailContato' => 'required|email|max:255',
-            'telefoneContato' => 'nullable|string|max:20',
-            'assuntoContato' => 'required|string|max:255',
-            'mensagemContato' => 'required|string',
-        ]);
+    // Método alternativo para inserção (com redirect)
+    public function insert(Request $request)
+    {
+        $this->validateContato($request);
 
         $contato = new Contato();
         $contato->nomeContato = $request->nomeContato;
@@ -111,9 +72,20 @@ class ContatoController extends Controller
         $contato->telefoneContato = $request->telefoneContato;
         $contato->assuntoContato = $request->assuntoContato;
         $contato->mensagemContato = $request->mensagemContato;
-        
         $contato->save();
 
-        return redirect()->back()->with('success', 'Contato enviado com sucesso!');
+        return redirect()->back()->with('message', 'Contato enviado com sucesso!');
+    }
+
+    // Método privado para validação (reutilizável)
+    private function validateContato(Request $request)
+    {
+        $request->validate([
+            'nomeContato' => 'required|string|max:255',
+            'emailContato' => 'required|email|max:255',
+            'telefoneContato' => 'nullable|string|max:20',
+            'assuntoContato' => 'required|string|max:255',
+            'mensagemContato' => 'required|string',
+        ]);
     }
 }
