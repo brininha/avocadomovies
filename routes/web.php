@@ -19,18 +19,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/contato', function () {
-    return view('contato');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/cadastro', function () {
-    return view ('cadastro');
-});
-
 Route::get('/sobre', function () {
     return view ('sobre');
 });
@@ -43,3 +31,5 @@ Route::get('/', 'App\Http\Controllers\FilmeController@index');
 Route::post('/enviar-contato', [ContatoController::class, 'store']);
 
 Route::post('/cadastrar-usuario', [ClienteController::class, 'store']);
+
+Route::post('/login', [ClienteController::class, 'login']);
