@@ -27,7 +27,7 @@ button:hover {
 .modal-content {
     background-color: #fff;
     margin: auto;
-    padding: 20px;
+    padding: 15px;
     border: 1px solid #888;
     width: fit-content;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -37,21 +37,23 @@ button:hover {
 
 .modal-content h2, .modal-content p {
     color: black;
+    display: block;
 }
 
 .modal-content h2 {
     padding: 10px;
 }
 
-.fecharContato, .fecharCadastro, .fecharMensagem {
+.fecharContato, .fecharCadastro, .fecharMensagem, .fecharExclusao, .fecharLogin {
+    display: block;
+    text-align: right;
     color: #aaa;
-    float: right;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
 }
 
-.fecharCadastro:hover, .fecharContato:hover, .fecharMensagem:hover,
-.fecharCadastro:focus, .fecharContato:focus, .fecharMensagem:focus {
+.fecharCadastro:hover, .fecharContato:hover, .fecharMensagem:hover, .fecharExclusao:hover, .fecharLogin:hover,
+.fecharCadastro:focus, .fecharContato:focus, .fecharMensagem:focus, .fecharExclusao:focus, .fecharLogin:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -77,7 +79,6 @@ label {
 }
 
 #modalAlert .modal-content {
-    background-color: #ffffffe2;
     text-align: center;
     width: 400px;
     display: flex;
