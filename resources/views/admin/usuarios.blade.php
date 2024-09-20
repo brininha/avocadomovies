@@ -42,11 +42,17 @@
                 </td>
                 <td><button class="btn btn-normal">✏️</button></td>
                 <td>
-                  <form action="{{ route('usuarios.deletar', $usuario->idCliente) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit" class="btn btn-normal">🗑️</button>
-                  </form>
+                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $usuario->idCliente }}">🗑️</a>
+                  <div id="modalExclusao{{ $usuario->idCliente }}" class="modal">
+                    <div class="modal-content">
+                      <span class="fecharExclusao">&times;</span>
+                      <p>Tem certeza que quer excluir esse usuário?</p>
+                      <form action="{{ route('usuarios.deletar', $usuario->idCliente) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-modal">Sim</button>
+                      </form>
+                    </div>
                 </td>
               </tr>
             @endif
@@ -65,8 +71,10 @@
           </div>
       </div>
   @endif
+  </div>
 
   <script src="{{ asset('js/modalAlert.js') }}"></script>
+  <script src="{{ asset('js/modalExclusao.js') }}"></script>
 </body>
 
 </html>

@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link
-        href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap') }}"
-        rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
     <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css') }}">
     <title>Avocado | Sobre nós</title>
 </head>
@@ -35,6 +33,11 @@
             </div>
         </div>
         @include('partials/footer')
+
+        @include('partials/modal-contato')
+        @include('partials/modal-login')
+        @include('partials/modal-cadastro')
+        @include('partials/modal-mensagem')
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

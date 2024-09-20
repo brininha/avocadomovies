@@ -97,76 +97,11 @@
             </div>
             @include('partials/footer')
 
-            <div id="modalContato" class="modal">
-                <div class="modal-content">
-                    <span class="fecharContato">&times;</span>
-                    <h2>Entre em contato conosco</h2>
-                    <form action="{{ url('/enviar-contato') }}" method="post">
-                        @csrf
-                        <div class="input-div">
-                            <input type="text" required name="nomeContato" placeholder="Nome">
-                        </div>
-                        <div class="input-div">
-                            <input type="email" required name="emailContato" placeholder="E-mail">
-                        </div>
-                        <div class="input-div">
-                            <input type="text" required name="telefoneContato" placeholder="Telefone">
-                        </div>
-                        <div class="input-div">
-                            <input type="text" required name="assuntoContato" placeholder="Assunto">
-                        </div>
-                        <div class="input-div">
-                            <textarea type="text" required name="mensagemContato" placeholder="Mensagem"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </form>
-                </div>
-            </div>
-
-            <div id="modalCadastro" class="modal">
-                <div class="modal-content">
-                    <span class="fecharCadastro">&times;</span>
-                    <h2>Cadastre-se</h2>
-                    <form method="post" action="{{url('cadastrar-usuario')}}">
-                        @csrf
-                        <div class="input-div">
-                            <input type="text" required name="nomeCliente" placeholder="Nome">
-                        </div>
-                        <div class="input-div">
-                            <input type="email" required name="emailCliente" placeholder="E-mail">
-                        </div>
-                        <div class="input-div">
-                            <input type="text" required name="telefoneCliente" placeholder="Telefone">
-                        </div>
-                        <div class="input-div">
-                            <input type="password" required name="senhaCliente" placeholder="Senha">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
-                    </form>
-                </div>
-            </div>
-
-            @if (session('message'))
-                <div id="modalAlert" class="modal">
-                    <div class="modal-content">
-                        <p>{{ session('message') }}</p>
-                        <span class="fecharMensagem">&times;</span>
-                    </div>
-                </div>
-            @endif
-
-            @if($errors->any())
-                <div id="modalAlert" class="modal">
-                    <div class="modal-content">
-                        <p>{{ $errors->first() }}</p>
-                        <span class="fecharMensagem">&times;</span>
-                    </div>
-                </div>
-            @endif
-
-            <script src="{{ asset('js/modalAlert.js') }}"></script>
-            <script src="{{ asset('js/modalCadastro.js') }}"></script>
-            <script src="{{ asset('js/modalContato.js') }}"></script>
+            @include('partials/modal-contato')
+            @include('partials/modal-login')
+            @include('partials/modal-cadastro')
+            @include('partials/modal-mensagem')
+            
             <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
