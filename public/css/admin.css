@@ -158,8 +158,11 @@ body {
     text-decoration: none;
     border-radius: 4px;
     font-size: 14px;
-    margin-right: 5px;
     transition: background-color 0.3s ease;
+}
+
+.btn-modal {
+    margin-top: 15px;
 }
 
 .btn-primary {
