@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,11 @@ Route::get('/sobre', function () {
     return view ('sobre');
 });
 
+Route::get('/admin', [ClienteController::class, 'read']);
+Route::put('/deletar-usuario/{id}', [ClienteController::class, 'destroy'])->name('usuarios.deletar');
+
 Route::get('/', 'App\Http\Controllers\FilmeController@index');
 
-Route::post('/enviar-contato', [ContatoController::class, 'insert']);
+Route::post('/enviar-contato', [ContatoController::class, 'store']);
+
+Route::post('/cadastrar-usuario', [ClienteController::class, 'store']);
