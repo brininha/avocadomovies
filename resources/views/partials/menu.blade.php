@@ -14,13 +14,13 @@
                     <a class="menu-list-item-text" href="/">Combos</a>
                 </li>
                 <li class="menu-list-item">
-                    <a class="menu-list-item-text" href="/contato">Contato</a>
+                    <a class="menu-list-item-text" id="abrirContato">Contato</a>
                 </li>
                 <li class="menu-list-item">
                     <a class="menu-list-item-text" href="/login">Login</a>
                 </li>
                 <li class="menu-list-item">
-                    <a class="menu-list-item-text" href="/cadastro">Cadastro</a>
+                    <a class="menu-list-item-text" id="abrirCadastro">Cadastro</a>
                 </li>
                 <li class="menu-list-item">
                     <a class="menu-list-item-text" href="/sobre">Sobre nós</a>
