@@ -27,27 +27,27 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($usuarios as $usuario)
-            @if ($usuario->excluido == 0)
+            @foreach ($usuarios as $filme)
+            @if ($filme->excluido == 0)
               <tr>
-                <td>{{ $usuario->nomeCliente }}</td>
-                <td>{{ $usuario->emailCliente }}</td>
-                <td>{{ $usuario->telefoneCliente }}</td>
+                <td>{{ $filme->nomeCliente }}</td>
+                <td>{{ $filme->emailCliente }}</td>
+                <td>{{ $filme->telefoneCliente }}</td>
                 <td>
-                @if (isset($usuario->dataCriacao))
-                {{ \Carbon\Carbon::parse($usuario->dataCriacao)->format('d/m/Y') }}
+                @if (isset($filme->dataCriacao))
+                {{ \Carbon\Carbon::parse($filme->dataCriacao)->format('d/m/Y') }}
                 @else
                 Indefinida
                 @endif
                 </td>
                 <td><button class="btn btn-normal">✏️</button></td>
                 <td>
-                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $usuario->idCliente }}">🗑️</a>
-                  <div id="modalExclusao{{ $usuario->idCliente }}" class="modal">
+                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $filme->idCliente }}">🗑️</a>
+                  <div id="modalExclusao{{ $filme->idCliente }}" class="modal">
                     <div class="modal-content">
                       <span class="fecharExclusao">&times;</span>
                       <p>Tem certeza que quer excluir esse usuário?</p>
-                      <form action="{{ route('usuarios.deletar', $usuario->idCliente) }}" method="POST" style="display:inline;">
+                      <form action="{{ route('usuarios.deletar', $filme->idCliente) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn btn-modal">Sim</button>

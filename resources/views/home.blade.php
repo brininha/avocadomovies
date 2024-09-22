@@ -37,7 +37,7 @@
                 <h1 class="movie-list-title">Filmes em cartaz</h1>
                 <div class="movie-list-wrapper">
                     <div class="movie-list">
-                        @foreach ($filme as $f)
+                        @foreach ($filmes as $f)
                             @if ($f->statusFilme == 0)
                                 <div class="movie-list-item">
                                     <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
@@ -55,7 +55,7 @@
                 <h1 class="movie-list-title">Próximos lançamentos</h1>
                 <div class="movie-list-wrapper">
                     <div class="movie-list">
-                        @foreach ($filme as $f)
+                        @foreach ($filmes as $f)
                             @if ($f->statusFilme == 1)
                                 <div class="movie-list-item">
                                     <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
@@ -81,7 +81,7 @@
                 <h1 class="movie-list-title">Próximo mês</h1>
                 <div class="movie-list-wrapper">
                     <div class="movie-list">
-                        @foreach ($filme as $f)
+                        @foreach ($filmes as $f)
                             @if ($f->statusFilme == 2)
                                 <div class="movie-list-item">
                                     <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">

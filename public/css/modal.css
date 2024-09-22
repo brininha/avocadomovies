@@ -44,7 +44,7 @@ button:hover {
     padding: 10px;
 }
 
-.fecharContato, .fecharCadastro, .fecharMensagem, .fecharExclusao, .fecharLogin {
+.fecharContato, .fecharCadastro, .fecharMensagem, .fecharExclusao, .fecharLogin, .fecharGenero {
     display: block;
     text-align: right;
     color: #aaa;
@@ -52,8 +52,8 @@ button:hover {
     font-weight: bold;
 }
 
-.fecharCadastro:hover, .fecharContato:hover, .fecharMensagem:hover, .fecharExclusao:hover, .fecharLogin:hover,
-.fecharCadastro:focus, .fecharContato:focus, .fecharMensagem:focus, .fecharExclusao:focus, .fecharLogin:focus {
+.fecharCadastro:hover, .fecharContato:hover, .fecharMensagem:hover, .fecharExclusao:hover, .fecharLogin:hover, .fecharGenero:hover,
+.fecharCadastro:focus, .fecharContato:focus, .fecharMensagem:focus, .fecharExclusao:focus, .fecharLogin:focus, .fecharGenero:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;

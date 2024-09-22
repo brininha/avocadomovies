@@ -2,114 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Filme;
+use App\Models\Genero;
+use Illuminate\Http\Request;
 
 class FilmeController extends Controller
 {
 
-    public function index()
+    // Retornar todos os filmes em ordem alfabética
+    public function read(Request $request)
     {
-        $filme = Filme::all();
-        return view('home', compact('filme'));
+        $filmes = Filme::orderBy('nomeFilme')->get();
+        $generos = Genero::all();
+
+        if ($request->has('view') && $request->view == 'adminFilmes') {
+            return view('admin/filmes', compact('filmes', 'generos'));
+        }
+
+        return view('home', compact('filmes'));
+
     }
 
-    public function read()
-    {
-        $filme = Filme::orderby('idFilme')->get();
-        return $filme;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function create()
-    // {
-    //     //
-    // }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Armazenar um novo filme
     public function store(Request $request)
     {
-        $filme = new Filme();
-        $filme->nomeFilme = $request->nomeFilme;
-        $filme->capaFilme = $request->capaFilme;
-        $filme->descFilme = $request->descFilme;
-        $filme->idGenero = $request->idGenero;
-        $filme->statusFilme = $request->statusFilme;
-        $filme->save();
+        $validatedData = $request->validate([
+            'nomeFilme' => 'required|string|max:255',
+            'capaFilme' => 'nullable|string|max:255',
+            'descFilme' => 'required|string',
+            'idGenero' => 'required|integer',
+            'statusFilme' => 'required|boolean',
+        ]);
+
+        $filme = Filme::create($validatedData);
 
         return response()->json([
-            'message' => 'Dados inseridos com sucesso',
-            'code' => 200,
-        ]);
+            'message' => 'Filme inserido com sucesso',
+            'data' => $filme,
+            'code' => 201,
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function show($id)
-    // {
-    //     //
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit($id)
-    // {
-    //     //
-    // }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Atualizar um filme existente
     public function update(Request $request, $id)
     {
-        Filme::where('idFilme', $id)->update([
-            'nomeFilme' => $request->nomeFilme,
-            'capaFilme' => $request->capaFilme,
-            'descFilme' => $request->descFilme,
-            'idGenero' => $request->idGenero,
-            'statusFilme' => $request->statusFilme,
+        $validatedData = $request->validate([
+            'nomeFilme' => 'required|string|max:255',
+            'capaFilme' => 'nullable|string|max:255',
+            'descFilme' => 'required|string',
+            'idGenero' => 'required|integer',
+            'statusFilme' => 'required|boolean',
         ]);
 
+        $filme = Filme::findOrFail($id);
+        $filme->update($validatedData);
+
         return response()->json([
-            'message' => 'Dados alterados com sucesso',
+            'message' => 'Filme atualizado com sucesso',
+            'data' => $filme,
             'code' => 200,
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Excluir um filme
     public function destroy($id)
     {
-        Filme::where('idFilme', $id)->delete();
-        return response()->json([
-            'message' => 'Dados excluídos com sucesso',
-            'code' => 200,
+        Filme::where('idFilme', $id)->update([
+            'excluido' => 1,
         ]);
+
+        return redirect()->back()->with('message', 'Filme excluído com sucesso!');
     }
 }

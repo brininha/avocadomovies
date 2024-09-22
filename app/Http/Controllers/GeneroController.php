@@ -2,107 +2,79 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Genero;
+use Illuminate\Http\Request;
 
 class GeneroController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    // Retornar todos os gêneros em JSON
+    public function read(Request $request)
     {
+        $generos = Genero::orderBy('nomeGenero')->get();
 
+        return view('admin/generos', compact('generos'));
     }
 
-    public function read() {
-        $genero = Genero::all();
-        return $genero;
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Exibir o formulário para criar um novo gênero (caso necessário)
     public function create()
     {
-        //
+        return view('generos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Armazenar um novo gênero
     public function store(Request $request)
     {
-        $genero = new Genero();
-        $genero->nomeGenero = $request->nomeGenero;
-        $genero->save();
-
-        return response()->json([
-            'message' => 'Dados inseridos com sucesso',
-            'code' => 200,
+        // Validação dos dados recebidos
+        $validatedData = $request->validate([
+            'nomeGenero' => 'required|string|max:255',
         ]);
+
+        // Criação de um novo gênero
+        $genero = Genero::create($validatedData);
+
+        return redirect()->back()->with('message', 'Gênero cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Exibir um gênero específico (caso necessário)
     public function show($id)
     {
-        //
+        $genero = Genero::findOrFail($id);
+        return response()->json($genero);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Exibir o formulário de edição de um gênero (caso necessário)
     public function edit($id)
     {
-        //
+        $genero = Genero::findOrFail($id);
+        return view('generos.edit', compact('genero'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Atualizar um gênero existente
     public function update(Request $request, $id)
     {
-        Genero::where('idGenero', $id)->update([
-            'nomeGenero' => $request->nomeGenero,
+        // Validação dos dados recebidos
+        $validatedData = $request->validate([
+            'nomeGenero' => 'required|string|max:255',
         ]);
 
+        // Encontrar e atualizar o gênero
+        $genero = Genero::findOrFail($id);
+        $genero->update($validatedData);
+
         return response()->json([
-            'message' => 'Dados alterados com sucesso',
+            'message' => 'Gênero atualizado com sucesso',
+            'data' => $genero,
             'code' => 200,
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Excluir um gênero
     public function destroy($id)
     {
-        Genero::where('idGenero', $id)->delete();
-        return response()->json([
-            'message' => 'Dados excluídos com sucesso',
-            'code' => 200,
+        Genero::where('idGenero', $id)->update([
+            'excluido' => 1,
         ]);
+
+        return redirect()->back()->with('message', 'Gênero excluído com sucesso!');
     }
 }

@@ -10,8 +10,8 @@
             $i = 0;
         @endphp
 
-        @foreach ($usuarios as $usuario)
-            @if ($usuario->excluido == 0)
+        @foreach ($usuarios as $filme)
+            @if ($filme->excluido == 0)
                 @php
                     $i++;
                 @endphp
