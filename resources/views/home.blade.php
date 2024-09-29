@@ -38,7 +38,7 @@
                 <div class="movie-list-wrapper">
                     <div class="movie-list">
                         @foreach ($filmes as $f)
-                            @if ($f->statusFilme == 0)
+                            @if ($f->statusFilme == 0 && $f->excluido == 0)
                                 <div class="movie-list-item">
                                     <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
                                     <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
@@ -56,7 +56,7 @@
                 <div class="movie-list-wrapper">
                     <div class="movie-list">
                         @foreach ($filmes as $f)
-                            @if ($f->statusFilme == 1)
+                            @if ($f->statusFilme == 1 && $f->excluido == 0)
                                 <div class="movie-list-item">
                                     <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
                                     <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
@@ -82,7 +82,7 @@
                 <div class="movie-list-wrapper">
                     <div class="movie-list">
                         @foreach ($filmes as $f)
-                            @if ($f->statusFilme == 2)
+                            @if ($f->statusFilme == 2 && $f->excluido == 0)
                                 <div class="movie-list-item">
                                     <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
                                     <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
