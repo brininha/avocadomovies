@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2024 at 11:44 AM
+-- Generation Time: Oct 02, 2024 at 04:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -174,7 +174,9 @@ INSERT INTO `tbcontato` (`idContato`, `nomeContato`, `emailContato`, `telefoneCo
 (5, 'Sabrina Cristan', 'sabrina.cristan@gmail.com', '11991827248', 'Sou linda', 'Precisava escrever em algum lugar o quão eu sou linda', '2024-09-01'),
 (6, 'Sabrina Cristan', 'sabrina.cristan@gmail.com', '11991827248', 'Testando modal', 'oi oi', '2024-09-19'),
 (7, 'Amelia', 'amelia@gmail.com', '11987654326', 'Cinema muito bom', 'Amo assistir nesse cinema!', '2024-09-19'),
-(8, 'Luana', 'lu@gmail.com', '11982736470', 'Nome legal', 'Gostei do nome do cinema.', '2024-09-19');
+(8, 'Luana', 'lu@gmail.com', '11982736470', 'Nome legal', 'Gostei do nome do cinema.', '2024-09-19'),
+(9, 'Giovana', 'gigi@gmail.com', '11987676543', 'Lindo app', 'Amei o layout desse aplicativo!', '2024-09-29'),
+(10, 'Xena', 'xena@gmail.com', '11987878765', 'Cadê a atualização??', 'Vocês prometeram atualizar o aplicativo!', '2024-09-29');
 
 -- --------------------------------------------------------
 
@@ -252,6 +254,26 @@ INSERT INTO `tbgenero` (`idGenero`, `dataCriacao`, `dataAtualizacao`, `excluido`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbingresso`
+--
+
+CREATE TABLE `tbingresso` (
+  `idIngresso` int(11) NOT NULL,
+  `idCliente` int(11) NOT NULL,
+  `idFilme` int(11) NOT NULL,
+  `statusIngresso` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbingresso`
+--
+
+INSERT INTO `tbingresso` (`idIngresso`, `idCliente`, `idFilme`, `statusIngresso`) VALUES
+(1, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -322,6 +344,12 @@ ALTER TABLE `tbgenero`
   ADD PRIMARY KEY (`idGenero`);
 
 --
+-- Indexes for table `tbingresso`
+--
+ALTER TABLE `tbingresso`
+  ADD PRIMARY KEY (`idIngresso`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -360,7 +388,7 @@ ALTER TABLE `tbcliente`
 -- AUTO_INCREMENT for table `tbcontato`
 --
 ALTER TABLE `tbcontato`
-  MODIFY `idContato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idContato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbfilme`
@@ -373,6 +401,12 @@ ALTER TABLE `tbfilme`
 --
 ALTER TABLE `tbgenero`
   MODIFY `idGenero` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbingresso`
+--
+ALTER TABLE `tbingresso`
+  MODIFY `idIngresso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
