@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 
 class GeneroController extends Controller
 {
-    // Retornar todos os gêneros em JSON
+    public function index() {
+        $generos = Genero::where('excluido', 0)->get();
+        return response()->json($generos);
+    }
+
     public function read(Request $request)
     {
         $generos = Genero::orderBy('nomeGenero')->get();

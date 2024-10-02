@@ -26,7 +26,7 @@ Route::get('/cliente', 'App\Http\Controllers\ClienteController@read');
 
 Route::get('/contato', 'App\Http\Controllers\ContatoController@read');
 
-Route::get('/genero', 'App\Http\Controllers\GeneroController@read');
+Route::get('/genero', 'App\Http\Controllers\GeneroController@index');
 
 // Método post de todas as tabelas
 
