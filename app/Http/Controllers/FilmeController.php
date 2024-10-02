@@ -9,7 +9,11 @@ use Illuminate\Http\Request;
 class FilmeController extends Controller
 {
 
-    // Retornar todos os filmes em ordem alfabética
+    public function index() {
+        $filmes = Filme::all();
+        return response()->json($filmes);
+    }
+    
     public function read(Request $request)
     {
         $filmes = Filme::orderBy('nomeFilme')->get();

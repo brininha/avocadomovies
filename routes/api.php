@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Método get de todas as tabelas
 
-Route::get('/filme', 'App\Http\Controllers\FilmeController@read');
+Route::get('/filme', 'App\Http\Controllers\FilmeController@index');
 
 Route::get('/cliente', 'App\Http\Controllers\ClienteController@read');
 
@@ -47,6 +47,8 @@ Route::put('/putCliente/{id}', 'App\Http\Controllers\ClienteController@update');
 Route::put('/putContato/{id}', 'App\Http\Controllers\ContatoController@update');
 
 Route::put('/putGenero/{id}', 'App\Http\Controllers\GeneroController@update');
+
+Route::put('/usarIngresso/{id}', 'App\Http\Controllers\IngressoController@update');
 
 // Método delete de todas as tabelas
 
