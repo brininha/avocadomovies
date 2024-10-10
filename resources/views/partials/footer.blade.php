@@ -1,3 +1,3 @@
 <div class="footer-container">
-    &copy Todos os direitos reservados.
+    &copy 2024 Avocado Movies. Todos os direitos reservados.
 </div>
