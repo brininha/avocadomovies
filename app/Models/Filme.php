@@ -10,6 +10,7 @@ class Filme extends Model
     use HasFactory;
 
     protected $table = "tbfilme";
+    protected $primaryKey = 'idFilme';
 
     protected $fillable = [
         "nomeFilme", 
