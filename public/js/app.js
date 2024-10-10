@@ -24,7 +24,7 @@ arrows.forEach((arrow, i) => {
 
 const ball = document.querySelector(".toggle-ball");
 const items = document.querySelectorAll(
-  ".container,.movie-list-title,.navbar-container,.sidebar,.left-menu-icon,.toggle, .menu-list-item-text, .logo-container, .movie-list-item-desc, .movie-list-item-title, .about-title"
+  ".container,.movie-list-title,.navbar-container,.sidebar,.left-menu-icon,.toggle, .menu-list-item-text, .logo-container, .movie-list-item-desc, .movie-list-item-title, .about-title, .footer-container"
 );
 
 ball.addEventListener("click", () => {
