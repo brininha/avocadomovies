@@ -15,94 +15,98 @@
 </head>
 
 <body>
-    @include('partials.menu')
-    <div class="sidebar">
-        <i class="left-menu-icon fas fa-search"></i>
-        <i class="left-menu-icon fas fa-home"></i>
-        <i class="left-menu-icon fas fa-bookmark"></i>
-        <i class="left-menu-icon fas fa-hourglass-start"></i>
-        <i class="left-menu-icon fas fa-shopping-cart"></i>
+    <div class="wrapper">
+        @include('partials.menu')
+        @include('partials.sidebar')
+        <div class="container">
+            <div class="content-container">
+                <div class="featured-content"
+                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/filme1.jpg') }});">
+                    <h1 class="featured-movie-title">{{ $filmes[4]->nomeFilme }}</h1>
+                    <p class="featured-desc">{{ $filmes[4]->descFilme }}</p>
+                    <button class="featured-button">Ingresso ▶</button>
+                </div>
+                <div id="movie-container" class="movie-list-container">
+                    <h1 class="movie-list-title">Filmes em cartaz</h1>
+                    <div class="movie-list-wrapper">
+                        <div class="movie-list">
+                            @foreach ($filmes as $f)
+                                @if ($f->statusFilme == 0 && $f->excluido == 0)
+                                    <div class="movie-list-item">
+                                        <a href="{{ url('/filme/' . $f->idFilme) }}">
+                                            <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
+                                            <div class="movie-list-item-text">
+                                                <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
+                                                <span
+                                                    class="movie-list-item-info">{{ $generos[$f->idGenero]->nomeGenero }}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </div>
+                </div>
+                <div class="movie-list-container">
+                    <h1 class="movie-list-title">Próximos lançamentos</h1>
+                    <div class="movie-list-wrapper">
+                        <div class="movie-list">
+                            @foreach ($filmes as $f)
+                                @if ($f->statusFilme == 1 && $f->excluido == 0)
+                                    <div class="movie-list-item">
+                                        <a href="">
+                                            <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
+                                            <div class="movie-list-item-text">
+                                                <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
+                                                <span class="movie-list-item-info">Ficção</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </div>
+                </div>
+                <div class="featured-content"
+                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/combo.jpg') }});">
+                    <h1 class="logo2">COMBOS</h1>
+                    <p class="featured-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto illo dolor
+                        deserunt nam assumenda ipsa eligendi dolore, ipsum id fugiat quo enim impedit, laboriosam omnis
+                        minima voluptatibus incidunt. Accusamus, provident.</p>
+                    <button class="featured-button">Comprar ▶</button>
+                </div>
+                <div class="movie-list-container">
+                    <h1 class="movie-list-title">Próximo mês</h1>
+                    <div class="movie-list-wrapper">
+                        <div class="movie-list">
+                            @foreach ($filmes as $f)
+                                @if ($f->statusFilme == 2 && $f->excluido == 0)
+                                    <div class="movie-list-item">
+                                        <a href="">
+                                            <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
+                                            <div class="movie-list-item-text">
+                                                <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
+                                                <span class="movie-list-item-info">Ficção</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </div>
+                </div>
+                @include('partials/modal-contato')
+                @include('partials/modal-login')
+                @include('partials/modal-cadastro')
+                @include('partials/modal-mensagem')
+            </div>
+        </div>
+        @include('partials/footer')
     </div>
-    <div class="container">
-        <div class="content-container">
-            <div class="featured-content"
-                style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/filme1.jpg') }});">
-                <h1 class="logo2">DUNA</h1>
-                <p class="featured-desc">Em um futuro distópico, o espaço se tornou um império intergalático.
-                    O sistema é comandado pelos nobres, enquanto o árido planeta Arrakis, também conhecido como Duna,
-                    possui a substância mais importante do cosmos que permite longas viagens entre os mundos.</p>
-                <button class="featured-button">Ingresso</button>
-            </div>
-            <div id="movie-container" class="movie-list-container">
-                <h1 class="movie-list-title">Filmes em cartaz</h1>
-                <div class="movie-list-wrapper">
-                    <div class="movie-list">
-                        @foreach ($filmes as $f)
-                            @if ($f->statusFilme == 0 && $f->excluido == 0)
-                                <div class="movie-list-item">
-                                    <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
-                                    <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
-                                    <p class="movie-list-item-desc"> {{$f->descFilme}}</p>
-                                    <button class="movie-list-item-button">Ingresso</button>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-            </div>
-            <div class="movie-list-container">
-                <h1 class="movie-list-title">Próximos lançamentos</h1>
-                <div class="movie-list-wrapper">
-                    <div class="movie-list">
-                        @foreach ($filmes as $f)
-                            @if ($f->statusFilme == 1 && $f->excluido == 0)
-                                <div class="movie-list-item">
-                                    <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
-                                    <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
-                                    <p class="movie-list-item-desc"> {{$f->descFilme}}</p>
-                                    <button class="movie-list-item-button">Ingresso</button>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-            </div>
-            <div class="featured-content"
-                style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/combo.jpg') }});">
-                <h1 class="logo2">COMBOS</h1>
-                <p class="featured-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto illo dolor
-                    deserunt nam assumenda ipsa eligendi dolore, ipsum id fugiat quo enim impedit, laboriosam omnis
-                    minima voluptatibus incidunt. Accusamus, provident.</p>
-                <button class="featured-button">Comprar</button>
-            </div>
-            <div class="movie-list-container">
-                <h1 class="movie-list-title">Próximo mês</h1>
-                <div class="movie-list-wrapper">
-                    <div class="movie-list">
-                        @foreach ($filmes as $f)
-                            @if ($f->statusFilme == 2 && $f->excluido == 0)
-                                <div class="movie-list-item">
-                                    <img class="movie-list-item-img" src="{{ asset($f->capaFilme) }}">
-                                    <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
-                                    <p class="movie-list-item-desc"> {{$f->descFilme}}</p>
-                                    <button class="movie-list-item-button">Ingresso</button>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-            </div>
-            @include('partials/footer')
-
-            @include('partials/modal-contato')
-            @include('partials/modal-login')
-            @include('partials/modal-cadastro')
-            @include('partials/modal-mensagem')
-            
-            <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>
