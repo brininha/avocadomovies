@@ -27,7 +27,10 @@
                 </div>
 
                 <div class="movie-data">
-                    <table>
+                    <table class="movie-data-table">
+                        <tr>
+                            <th colspan="2" class="movie-data-title">Informações do filme</th>
+                        </tr>
                         <tr>
                             <th>Título:</th>
                             <td>Nome do Filme</td>
@@ -38,7 +41,7 @@
                         </tr>
                         <tr>
                             <th>Gênero:</th>
-                            <td>Ação, Aventura</td>
+                            <td>Ação</td>
                         </tr>
                         <tr>
                             <th>Faixa Etária:</th>
@@ -57,6 +60,40 @@
                             <td>Uma breve descrição do enredo do filme que fornece uma visão geral sem revelar spoilers.
                             </td>
                         </tr>
+                    </table>
+                    <table class="movie-data-table">
+                        <thead>
+                            <tr>
+                                <th colspan="5" class="movie-data-title">Sessões disponíveis</th>
+                            </tr>
+                            <tr>
+                                <th colspan="5">
+                                    <input type="date" name="" id="">
+                                    <select name="" id="">
+                                        <option value="3D">3D</option>
+                                    </select>
+                                    <select name="" id="">
+                                        <option value="Português">Português</option>
+                                    </select>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Sala</th>
+                                <th>Idioma</th>
+                                <th>Preço</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10/10/2024</td>
+                                <td>14:00</td>
+                                <td>1</td>
+                                <td>Português</td>
+                                <td>R$ 40,00</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
 

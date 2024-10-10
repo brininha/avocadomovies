@@ -31,7 +31,6 @@ body {
     height: 100%;
     padding: 0 50px;
     color: white;
-    font-family: "Sen", sans-serif;
 }
 
 .logo-container {
@@ -64,6 +63,7 @@ body {
 .menu-list-item-text {
     text-decoration: none;
     color: white;
+    font-size: 20px;
 }
 
 .menu-list-item-text:hover {
@@ -306,7 +306,6 @@ body {
 
 .navbar-container.active {
     background-color: white;
-
     color: black;
 }
 
@@ -321,8 +320,9 @@ body {
 .footer-container {
     color: white;
     text-align: center;
-    padding: 15px;
+    padding: 20px;
     background: #000000;
+    font-size: 20px;
 }
 
 .footer-container.active {
