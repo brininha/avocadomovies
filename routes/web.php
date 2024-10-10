@@ -31,6 +31,8 @@ Route::put('/deletar-genero/{id}', [GeneroController::class, 'destroy'])->name('
 
 Route::get('/', [FilmeController::class, 'read']);
 
+Route::get('/filme/{id}', [FilmeController::class, 'find']);
+
 Route::get('/admin/filmes', [FilmeController::class, 'read']);
 
 Route::get('/admin/contato', [ContatoController::class, 'read']);

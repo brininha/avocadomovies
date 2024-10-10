@@ -23,7 +23,7 @@ class FilmeController extends Controller
             return view('admin/filmes', compact('filmes', 'generos'));
         }
 
-        return view('home', compact('filmes'));
+        return view('home', compact('filmes', 'generos'));
 
     }
 
@@ -76,5 +76,15 @@ class FilmeController extends Controller
         ]);
 
         return redirect()->back()->with('message', 'Filme excluído com sucesso!');
+    }
+
+    public function find($id) {
+        $filme = Filme::find($id);
+
+        if (!$filme) {
+            return response()->json(['mensagem' => 'Filme não encontrado'], 404);
+        }
+
+        return view('filme', compact('filme'));
     }
 }
