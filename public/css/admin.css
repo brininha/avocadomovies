@@ -100,7 +100,7 @@ body {
 
 .table-container {
     max-width: 100%;
-    max-height: 400px;
+    max-height: 83vh;
     overflow-y: auto;
     margin-top: 20px;
     background-color: #ffffff;
@@ -142,7 +142,6 @@ body {
 /* Hover */
 .table tr:hover td {
     background-color: #e0f7fa;
-    cursor: pointer;
 }
 
 /* Responsivo */
@@ -196,4 +195,12 @@ body {
 
 .table-container::-webkit-scrollbar-track {
     background-color: #f1f1f1;
+}
+
+.logo {
+    width: 100%;
+}
+
+.left-menu-icon {
+    padding-right: 10px;
 }

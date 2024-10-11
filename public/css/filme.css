@@ -31,3 +31,9 @@
 .movie-data-table tr {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+.faixa-etaria {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
