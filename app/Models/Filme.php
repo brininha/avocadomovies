@@ -17,7 +17,15 @@ class Filme extends Model
         "capaFilme", 
         "descFilme", 
         "idGenero", 
-        "statusFilme"
+        "dataLancamento",
+        "duracaoFilme",
+        "diretorFilme",
+        "elencoFilme",
+        "idIdioma",
+        "faixaEtariaFilme",
+        "trailerFilme",
+        "dataEntradaCartaz",
+        "dataSaidaCartaz",
     ];
 
     public $timestamps = false;

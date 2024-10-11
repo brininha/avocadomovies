@@ -10,6 +10,7 @@ class Genero extends Model
     use HasFactory;
 
     protected $table = "tbgenero";
+    protected $primaryKey = "idGenero";
 
     protected $fillable = [
         "nomeGenero", 
