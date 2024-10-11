@@ -99,9 +99,10 @@ body {
 }
 
 .table-container {
-    max-width: 100%;
+    max-width: calc(100vw - 250px);
     max-height: 83vh;
     overflow-y: auto;
+    overflow-x: auto;
     margin-top: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -114,6 +115,7 @@ body {
 .table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto;
 }
 
 .table th, 
@@ -123,9 +125,9 @@ body {
 }
 
 .table th {
-    background-color: #000;
-    color: white;
+    background-color: #f2f2f2;
     font-weight: bold;
+    white-space: nowrap;
     text-transform: uppercase;
 }
 
@@ -183,7 +185,6 @@ body {
     border: black solid 1.3px;
 }
 
-/* Barra de rolagem */
 .table-container::-webkit-scrollbar {
     width: 10px;
 }
