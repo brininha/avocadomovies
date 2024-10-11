@@ -33,32 +33,45 @@
                         </tr>
                         <tr>
                             <th>Título:</th>
-                            <td>Nome do Filme</td>
+                            <td>{{ $filme->nomeFilme }}</td>
                         </tr>
                         <tr>
                             <th>Duração:</th>
-                            <td>120 minutos</td>
+                            <td>{{ $filme->duracaoFilme }} min</td>
                         </tr>
                         <tr>
                             <th>Gênero:</th>
-                            <td>Ação</td>
+                            <td>{{ $genero->nomeGenero }}</td>
                         </tr>
                         <tr>
                             <th>Faixa Etária:</th>
-                            <td>16+</td>
+                            <td>
+                                @if ($filme->faixaEtariaFilme == 'L')
+                                    <span style="background-color: green" class="faixa-etaria">L</span>
+                                @elseif ($filme->faixaEtariaFilme == '10')
+                                    <span style="background-color: deepskyblue" class="faixa-etaria">10</span>
+                                @elseif ($filme->faixaEtariaFilme == '12')
+                                    <span style="background-color: gold" class="faixa-etaria">12</span>
+                                @elseif ($filme->faixaEtariaFilme == '14')
+                                    <span style="background-color: orange" class="faixa-etaria">14</span>
+                                @elseif ($filme->faixaEtariaFilme == '16')
+                                    <span style="background-color: red" class="faixa-etaria">16</span>
+                                @elseif ($filme->faixaEtariaFilme == '18')
+                                    <span style="background-color: black" class="faixa-etaria">18</span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <th>Diretor:</th>
-                            <td>Nome do Diretor</td>
+                            <td>{{ $filme->diretorFilme }}</td>
                         </tr>
                         <tr>
                             <th>Elenco:</th>
-                            <td>Ator 1, Ator 2, Atriz 1, Atriz 2</td>
+                            <td>{{ $filme->elencoFilme }}</td>
                         </tr>
                         <tr>
                             <th>Sinopse:</th>
-                            <td>Uma breve descrição do enredo do filme que fornece uma visão geral sem revelar spoilers.
-                            </td>
+                            <td>{{ $filme->descFilme }}</td>
                         </tr>
                     </table>
                     <table class="movie-data-table">
