@@ -1,28 +1,28 @@
 // Pega o modal
-var modalFilme = document.getElementById("modalGenero");
+var modalEditFilme = document.getElementById("modalFilme");
 
 // Pega o botão que abre o modal
-var btnFilme = document.getElementById("abrirGenero");
+var btnEditFilme = document.getElementById("abrirFilme");
 
 // Pega o elemento <span> que fecha o modal
-var spanFilme = document.getElementsByClassName("fecharGenero")[0];
+var spanEditFilme = document.getElementsByClassName("fecharFilme")[0];
 
 // Quando o usuário clicar no botão, abre o modal
-btnFilme.onclick = function() {
-  modalFilme.style.display = "flex";
+btnEditFilme.onclick = function() {
+  modalEditFilme.style.display = "flex";
   document.body.style.overflow = "hidden";
 }
 
 // Quando o usuário clicar no <span> (x), fecha o modal
-spanFilme.onclick = function() {
-  modalFilme.style.display = "none";
+spanEditFilme.onclick = function() {
+  modalEditFilme.style.display = "none";
   document.body.style.overflow = "auto";
 }
 
 // Quando o usuário clicar fora do modal, fecha-o
 window.onclick = function(event) {
-  if (event.target == modalFilme) {
-    modalFilme.style.display = "none";
+  if (event.target == modalEditFilme) {
+    modalEditFilme.style.display = "none";
     document.body.style.overflow = "auto";
   }
 }

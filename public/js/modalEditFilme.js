@@ -1,18 +1,18 @@
-var btnsEditFilme = document.getElementsByClassName("abrirExclusao");
+var btnsEditFilme = document.getElementsByClassName("abrirEditFilme");
 
 for (var i = 0; i < btnsEditFilme.length; i++) {
   btnsEditFilme[i].addEventListener('click', function() {
-    var idExclusao = this.id.replace('abrirExclusao', '');
+    var idEditFilme = this.id.replace('abrirEditFilme', '');
 
-    var modalExclusao = document.getElementById('modalExclusao' + idExclusao);
+    var modalEditFilme = document.getElementById('modalEditFilme' + idEditFilme);
     
-    modalExclusao.style.display = "flex";
+    modalEditFilme.style.display = "flex";
     document.body.style.overflow = "hidden";
 
-    var spanExclusao = modalExclusao.getElementsByClassName("fecharExclusao")[0];
+    var spanEditFilme = modalEditFilme.getElementsByClassName("fecharEditFilme")[0];
 
-    spanExclusao.onclick = function() {
-      modalExclusao.style.display = "none";
+    spanEditFilme.onclick = function() {
+      modalEditFilme.style.display = "none";
       document.body.style.overflow = "auto";
     };
   });
