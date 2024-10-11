@@ -18,7 +18,7 @@ body {
 
 .sidebar {
     width: 250px;
-    background-color: #333;
+    background-color: #000;
     color: #fff;
     padding: 20px;
     min-height: 100vh;
@@ -64,7 +64,7 @@ body {
 
 .header button {
     padding: 10px 20px;
-    background-color: #333;
+    background-color: #000;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -204,4 +204,10 @@ body {
 
 .left-menu-icon {
     padding-right: 10px;
+}
+
+#chart_div {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: white;
 }
