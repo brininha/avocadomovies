@@ -7,6 +7,8 @@
   <title>Admin | Dashboard</title>
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
   <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+  <link rel="stylesheet"
+        href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css') }}">
 </head>
 
 <body>
@@ -38,9 +40,9 @@
                 <td><button class="btn btn-normal">✏️</button></td>
                 <td>
                   <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $genero->idGenero }}">🗑️</a>
-                  <div id="modalExclusao{{ $genero->idGenero }}" class="modal">
+                  <div id="modalExclusao{{ $genero->idGenero }}" class="modal modal-exclusao">
                     <div class="modal-content">
-                      <span class="fecharExclusao">&times;</span>
+                      <span class="fecharExclusao fecharBtn">&times;</span>
                       <p>Tem certeza que quer excluir esse gênero?</p>
                       <form action="{{ route('generos.deletar', $genero->idGenero) }}" method="POST" style="display:inline;">
                         @csrf
@@ -64,7 +66,7 @@
       <div id="modalAlert" class="modal">
           <div class="modal-content">
               <p>{{ session('message') }}</p>
-              <span class="fecharMensagem">&times;</span>
+              <span class="fecharMensagem fecharBtn">&times;</span>
           </div>
       </div>
   @endif

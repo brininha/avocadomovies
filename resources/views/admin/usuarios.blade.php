@@ -7,6 +7,8 @@
   <title>Admin | Dashboard</title>
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
   <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+  <link rel="stylesheet"
+        href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css') }}">
 </head>
 
 <body>
@@ -43,7 +45,7 @@
                 <td><button class="btn btn-normal">✏️</button></td>
                 <td>
                   <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $filme->idCliente }}">🗑️</a>
-                  <div id="modalExclusao{{ $filme->idCliente }}" class="modal">
+                  <div id="modalExclusao{{ $filme->idCliente }}" class="modal modal-exclusao">
                     <div class="modal-content">
                       <span class="fecharExclusao">&times;</span>
                       <p>Tem certeza que quer excluir esse usuário?</p>

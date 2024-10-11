@@ -22,8 +22,8 @@
             <div class="content-container">
                 <div class="featured-content"
                     style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/filme1.jpg') }});">
-                    <h1 class="featured-movie-title">{{ $filmes[4]->nomeFilme }}</h1>
-                    <p class="featured-desc">{{ $filmes[4]->descFilme }}</p>
+                    <h1 class="featured-movie-title">{{ $filmes->firstWhere('nomeFilme', 'Duna')->nomeFilme }}</h1>
+                    <p class="featured-desc">{{ $filmes->firstWhere('nomeFilme', 'Duna')->descFilme }}</p>
                     <button class="featured-button">Ingresso ▶</button>
                 </div>
                 <div id="movie-container" class="movie-list-container">
@@ -38,7 +38,7 @@
                                             <div class="movie-list-item-text">
                                                 <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
                                                 <span
-                                                    class="movie-list-item-info">{{ $generos[$f->idGenero]->nomeGenero }}</span>
+                                                    class="movie-list-item-info">{{ $generos->firstWhere('idGenero', $f->idGenero)->nomeGenero }}</span>
                                             </div>
                                         </a>
                                     </div>
