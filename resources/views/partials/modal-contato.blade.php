@@ -1,6 +1,6 @@
 <div id="modalContato" class="modal">
     <div class="modal-content">
-        <span class="fecharContato">&times;</span>
+        <span class="fecharContato fecharBtn">&times;</span>
         <h2>Entre em contato conosco</h2>
         <form action="{{ url('/enviar-contato') }}" method="post">
             @csrf

@@ -1,6 +1,6 @@
 <div id="modalGenero" class="modal">
     <div class="modal-content">
-        <span class="fecharGenero">&times;</span>
+        <span class="fecharGenero fecharBtn">&times;</span>
         <h2>Novo gênero</h2>
         <form method="post" action="{{url('adicionar-genero')}}">
             @csrf

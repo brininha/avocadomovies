@@ -1,6 +1,6 @@
 <div id="modalLogin" class="modal">
     <div class="modal-content">
-        <span class="fecharLogin">&times;</span>
+        <span class="fecharLogin fecharBtn">&times;</span>
         <h2>Login</h2>
         <form method="post" action="{{url('login')}}">
             @csrf

@@ -2,7 +2,7 @@
 <div id="modalAlert" class="modal">
     <div class="modal-content">
         <p>{{ session('message') }}</p>
-        <span class="fecharMensagem">&times;</span>
+        <span class="fecharMensagem fecharBtn">&times;</span>
     </div>
 </div>
 @endif

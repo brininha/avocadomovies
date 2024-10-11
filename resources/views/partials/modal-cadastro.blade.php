@@ -1,6 +1,6 @@
 <div id="modalCadastro" class="modal">
     <div class="modal-content">
-        <span class="fecharCadastro">&times;</span>
+        <span class="fecharCadastro fecharBtn">&times;</span>
         <h2>Cadastre-se</h2>
         <form method="post" action="{{url('cadastrar-usuario')}}">
             @csrf

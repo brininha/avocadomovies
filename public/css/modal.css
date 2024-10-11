@@ -30,9 +30,26 @@ button:hover {
     padding: 15px;
     border: 1px solid #888;
     width: fit-content;
+    max-height: 400px;
+    overflow-y: scroll;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 8px;
 }
 
 .modal-content h2, .modal-content p {
@@ -44,7 +61,7 @@ button:hover {
     padding: 10px;
 }
 
-.fecharContato, .fecharCadastro, .fecharMensagem, .fecharExclusao, .fecharLogin, .fecharGenero {
+.fecharBtn, .fecharExclusao {
     display: block;
     text-align: right;
     color: #aaa;
@@ -52,8 +69,8 @@ button:hover {
     font-weight: bold;
 }
 
-.fecharCadastro:hover, .fecharContato:hover, .fecharMensagem:hover, .fecharExclusao:hover, .fecharLogin:hover, .fecharGenero:hover,
-.fecharCadastro:focus, .fecharContato:focus, .fecharMensagem:focus, .fecharExclusao:focus, .fecharLogin:focus, .fecharGenero:focus {
+.fecharBtn:hover, .fecharExclusao:hover,
+.fecharBtn:focus, .fecharExclusao:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -70,8 +87,14 @@ label {
 
 .input-div input, .input-div textarea {
     padding: 10px;
-    width: 250px;
+    width: 400px;
     border: 1px solid rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+}
+
+.input-div input::placeholder {
+    font-size: 12px;
+    color: #0000009a;
 }
 
 .input-div input:focus {
@@ -84,4 +107,72 @@ label {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.file-upload-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px;
+    background-color: #f1f1f1;
+}
+
+.file-upload {
+    display: none;
+}
+
+.file-name {
+    font-size: 12px;
+    color: #555;
+    padding: 10px;
+}
+
+.select-div {
+    padding: 8px;
+    width: 400px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    color: #0000009a;
+}
+
+.input-label {
+    font-size: 12px;
+    color: #0000009a;
+    text-align: left;
+    padding-block: 8px;
+}
+
+.modal-exclusao p {
+    padding-top: 10px;
+}
+
+.btn-info {
+    text-align: left;
+    display: block;
+    width: fit-content;
+    padding-block: 10px;
+    cursor: help;
+    border-radius: 100%;
+}
+
+.btn-info:hover ~ .text-info {
+    display: block;
+}
+
+.text-info {
+    text-align: left;
+    width: 400px;
+    font-size: 14px;
+    display: none;
 }
