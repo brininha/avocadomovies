@@ -82,7 +82,6 @@
     </div>
 </div>
 
-<script src="{{ asset('js/modalFilme.js') }}"></script>
 <script>
     document.getElementById('file-upload').addEventListener('change', function () {
         var fileName = this.files[0] ? this.files[0].name : 'Nada selecionado';

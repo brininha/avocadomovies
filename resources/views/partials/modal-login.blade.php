@@ -14,5 +14,3 @@
         </form>
     </div>
 </div>
-
-<script src="{{ asset('js/modalLogin.js') }}"></script>

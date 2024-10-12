@@ -1,5 +1,5 @@
 <div id="modalContato" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="max-height: fit-content">
         <span class="fecharContato fecharBtn">&times;</span>
         <h2>Entre em contato conosco</h2>
         <form action="{{ url('/enviar-contato') }}" method="post">
@@ -11,7 +11,8 @@
                 <input type="email" required name="emailContato" placeholder="E-mail">
             </div>
             <div class="input-div">
-                <input type="text" required name="telefoneContato" placeholder="Telefone">
+                <input type="tel" required name="telefoneContato" placeholder="Telefone" 
+                maxlength="15" onkeyup="mascaraTelefone(this)">
             </div>
             <div class="input-div">
                 <input type="text" required name="assuntoContato" placeholder="Assunto">
@@ -23,5 +24,3 @@
         </form>
     </div>
 </div>
-
-<script src="{{ asset('js/modalContato.js') }}"></script>

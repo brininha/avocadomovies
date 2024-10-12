@@ -11,7 +11,7 @@
                 <input type="email" required name="emailCliente" placeholder="E-mail">
             </div>
             <div class="input-div">
-                <input type="text" required name="telefoneCliente" placeholder="Telefone">
+                <input type="text" required name="telefoneCliente" placeholder="Telefone" maxlength="15" onkeyup="mascaraTelefone(this)">
             </div>
             <div class="input-div">
                 <input type="password" required name="senhaCliente" placeholder="Senha">
@@ -20,5 +20,3 @@
         </form>
     </div>
 </div>
-
-<script src="{{ asset('js/modalCadastro.js') }}"></script>

@@ -11,5 +11,3 @@
         </form>
     </div>
 </div>
-
-<script src="{{ asset('js/modalGenero.js') }}"></script>
