@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ClienteController extends Controller
 {
-    public function read()
+    public function read(Request $request)
     {
         $usuarios = Cliente::all()->sortBy('nomeCliente');
+
+        if ($request->has('view') && $request->view == 'adminHome') {
+            return view('admin/home', compact('usuarios'));
+        }
+
         return view('admin/usuarios', compact('usuarios'));
     }
     public function store(Request $request)

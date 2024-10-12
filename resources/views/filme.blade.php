@@ -22,7 +22,7 @@
         <div class="container">
             <div class="content-container">
                 <div class="featured-content"
-                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset($filme->capaFilme) }});">
+                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('storage/images/' . $filme->capaFilme) }});">
                     <h1 class="featured-movie-title">{{ $filme->nomeFilme }}</h1>
                 </div>
 
@@ -57,7 +57,7 @@
                                 @elseif ($filme->faixaEtariaFilme == '16')
                                     <span style="background-color: red" class="faixa-etaria">16</span>
                                 @elseif ($filme->faixaEtariaFilme == '18')
-                                    <span style="background-color: black" class="faixa-etaria">18</span>
+                                    <span style="background-color: black; border: 1px solid #ffffffac" class="faixa-etaria">18</span>
                                 @endif
                             </td>
                         </tr>
