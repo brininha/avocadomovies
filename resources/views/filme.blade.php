@@ -22,7 +22,7 @@
         <div class="container">
             <div class="content-container">
                 <div class="featured-content"
-                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('storage/images/' . $filme->capaFilme) }});">
+                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('storage/images/' . $filme->capaFilme) }}); background-size: 100% auto;">
                     <h1 class="featured-movie-title">{{ $filme->nomeFilme }}</h1>
                 </div>
 

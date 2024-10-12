@@ -21,7 +21,7 @@
         <div class="container">
             <div class="content-container">
                 <div class="featured-content"
-                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/filme1.jpg') }});">
+                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/filme1.jpg') }}); background-size: 100% auto;">
                     <h1 class="featured-movie-title">{{ $filmes->firstWhere('nomeFilme', 'Duna')->nomeFilme }}</h1>
                     <p class="featured-desc">{{ $filmes->firstWhere('nomeFilme', 'Duna')->descFilme }}</p>
                     <button class="featured-button">Ingresso ▶</button>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="featured-content"
-                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/combo.jpg') }});">
+                    style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url({{ asset('images/combo.jpg') }}); background-size: 100% auto;">
                     <h1 class="logo2">COMBOS</h1>
                     <p class="featured-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto illo dolor
                         deserunt nam assumenda ipsa eligendi dolore, ipsum id fugiat quo enim impedit, laboriosam omnis
