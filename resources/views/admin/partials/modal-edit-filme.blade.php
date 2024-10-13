@@ -1,4 +1,3 @@
-<a class="btn btn-normal abrirEditFilme" id="abrirEditFilme{{ $filme->idFilme }}">✏️</a>
 <div id="modalEditFilme{{ $filme->idFilme }}" class="modal">
     <div class="modal-content">
         <span class="fecharEditFilme fecharBtn">&times;</span>
@@ -17,12 +16,12 @@
             <div class="input-div">
                 <label class="input-label" for="idGenero">Gênero</label>
                 <select class="select-div" name="idGenero" id="idGenero" required>
-                    @foreach ($generos as $genero)
-                        @if ($genero->excluido == 0)
-                            @if ($genero->idGenero == $filme->idGenero)
-                                <option value="{{ $genero->idGenero }}" selected>{{ $genero->nomeGenero }}</option>
+                    @foreach ($generos as $contato)
+                        @if ($contato->excluido == 0)
+                            @if ($contato->idGenero == $filme->idGenero)
+                                <option value="{{ $contato->idGenero }}" selected>{{ $contato->nomeGenero }}</option>
                             @else
-                                <option value="{{ $genero->idGenero }}">{{ $genero->nomeGenero }}</option>
+                                <option value="{{ $contato->idGenero }}">{{ $contato->nomeGenero }}</option>
                             @endif
                         @endif
                     @endforeach
@@ -82,6 +81,8 @@
             <div class="input-div">
                 <label class="input-label" for="trailerFilme">URL do trailer</label>
                 <input type="url" required name="trailerFilme" id="trailerFilme" value="{{ $filme->trailerFilme }}">
+                <span class="btn-info">?</span>
+                <span class="text-info">Certifique-se de que a URL do vídeo esteja no formato incorporado do YouTube. O formato correto deve ser algo como: https://www.youtube.com/embed/VIDEO_ID.</span>
             </div>
             <div class="input-div">
                 <label class="input-label" for="edit-filme-file-upload{{$filme->idFilme}}">Imagem de capa</label>
@@ -99,7 +100,6 @@
     </div>
 </div>
 
-<script src="{{ asset('js/modalEditFilme.js') }}"></script>
 <script>
     document.getElementById('edit-filme-file-upload{{$filme->idFilme}}').addEventListener('change', function () {
         var fileName = this.files[0] ? this.files[0].name : 'Nada selecionado';

@@ -26,30 +26,25 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($generos as $genero)
-            @if ($genero->excluido == 0)
+            @foreach ($generos as $contato)
+            @if ($contato->excluido == 0)
               <tr>
-                <td>{{ $genero->nomeGenero }}</td>
+                <td>{{ $contato->nomeGenero }}</td>
                 <td>
-                @if (isset($genero->dataCriacao))
-                {{ \Carbon\Carbon::parse($genero->dataCriacao)->format('d/m/Y') }}
+                @if (isset($contato->dataCriacao))
+                {{ \Carbon\Carbon::parse($contato->dataCriacao)->format('d/m/Y') }}
                 @else
                 Indefinida
                 @endif
                 </td>
-                <td><button class="btn btn-normal">✏️</button></td>
+                <td><a class="btn btn-normal"><i class="far fa-edit"></i></a></td>
                 <td>
-                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $genero->idGenero }}">🗑️</a>
-                  <div id="modalExclusao{{ $genero->idGenero }}" class="modal modal-exclusao">
-                    <div class="modal-content">
-                      <span class="fecharExclusao fecharBtn">&times;</span>
-                      <p>Tem certeza que quer excluir esse gênero?</p>
-                      <form action="{{ route('generos.deletar', $genero->idGenero) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" class="btn btn-modal">Sim</button>
-                      </form>
-                    </div>
+                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $contato->idGenero }}"><i class="far fa-trash-alt"></i></a>
+                  <x-modal-exclusao 
+                    :modalId="'modalExclusao'.$contato->idGenero" 
+                    :url="route('generos.deletar', $contato->idGenero)" 
+                    :mensagem="'Tem certeza que quer excluir esse gênero?'"
+                  />
                 </td>
               </tr>
             @endif
@@ -72,8 +67,12 @@
   @endif
   </div>
 
-  <script src="{{ asset('js/modalAlert.js') }}"></script>
-  <script src="{{ asset('js/modalExclusao.js') }}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+            configurarModal('modalGenero', 'abrirGenero', 'fecharGenero');
+        });
+  </script>
+  <script src="{{ asset('js/modais.js') }}"></script>
 </body>
 
 </html>

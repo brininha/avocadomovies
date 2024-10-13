@@ -15,9 +15,9 @@
             <div class="input-div">
                 <label class="input-label" for="idGenero">Gênero</label>
                 <select class="select-div" name="idGenero" id="idGenero" required>
-                    @foreach ($generos as $genero)
-                        @if ($genero->excluido == 0)
-                            <option value="{{ $genero->idGenero }}">{{ $genero->nomeGenero }}</option>
+                    @foreach ($generos as $contato)
+                        @if ($contato->excluido == 0)
+                            <option value="{{ $contato->idGenero }}">{{ $contato->nomeGenero }}</option>
                         @endif
                     @endforeach
                 </select>
@@ -68,6 +68,8 @@
             <div class="input-div">
                 <label class="input-label" for="trailerFilme">URL do trailer</label>
                 <input type="url" required name="trailerFilme" id="trailerFilme" placeholder="https://exemplo.com/trailer">
+                <span class="btn-info">?</span>
+                <span class="text-info">Certifique-se de que a URL do vídeo esteja no formato incorporado do YouTube. O formato correto deve ser algo como: https://www.youtube.com/embed/VIDEO_ID.</span>
             </div>
             <div class="input-div">
                 <label class="input-label" for="file-upload">Imagem de capa</label>

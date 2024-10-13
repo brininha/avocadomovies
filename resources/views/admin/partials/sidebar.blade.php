@@ -5,7 +5,7 @@
         <li><i class="left-menu-icon fas fa-user"></i><a href="{{ url('/admin/usuarios') }}">Usuários</a></li>
         <li><i class="left-menu-icon fas fa-film"></i><a href="{{ url('/admin/filmes?view=adminFilmes') }}">Filmes</a></li>
         <li><i class="left-menu-icon fas fa-book"></i><a href="{{ url('/admin/generos') }}">Gêneros</a></li>
-        <li><i class="left-menu-icon fas fa-envelope"></i><a href="{{ url('/admin') }}">Contatos</a></li>
+        <li><i class="left-menu-icon fas fa-envelope"></i><a href="{{ url('/admin/contatos') }}">Contatos</a></li>
         <li><i class="left-menu-icon fas fa-globe-americas"></i><a href="{{ url('/admin') }}">Localizações</a></li>
         <li><i class="left-menu-icon fas fa-couch"></i><a href="{{ url('/admin') }}">Salas</a></li>
         <li><i class="left-menu-icon fas fa-tv"></i><a href="{{ url('/admin') }}">Sessões</a></li>

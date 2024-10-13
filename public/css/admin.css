@@ -177,16 +177,28 @@ body {
 
 .btn-normal {
     cursor: pointer;
-    background-color: #fff;
-    border: rgba(0, 0, 0, 0.6) 1px solid;
+    border-radius: 10%;
 }
 
-.btn-normal:hover {
-    border: black solid 1.3px;
+.btn-normal:first-child {
+    background-color: #ffdede;
+}
+
+.btn-normal:last-child {
+    background-color: #dee6ff;
+}
+
+.btn-normal:first-child:hover {
+    background-color: #ffcccc;
+}
+
+.btn-normal:last-child:hover {
+    background-color: #cedaff;
 }
 
 .table-container::-webkit-scrollbar {
     width: 10px;
+    height: 11px;
 }
 
 .table-container::-webkit-scrollbar-thumb {
@@ -210,4 +222,11 @@ body {
     margin-top: 40px;
     padding: 20px;
     background-color: white;
+}
+
+.faixa-etaria {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
 }

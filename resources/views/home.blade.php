@@ -107,6 +107,15 @@
         @include('partials/footer')
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/modais.js') }}"></script>
+    <script src="{{ asset('js/telefone.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            configurarModal("modalLogin", "abrirLogin", "fecharLogin");
+            configurarModal("modalContato", "abrirContato", "fecharContato");
+            configurarModal("modalCadastro", "abrirCadastro", "fecharCadastro");
+        });
+    </script>
 </body>
 
 </html>

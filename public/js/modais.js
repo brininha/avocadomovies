@@ -69,6 +69,27 @@ for (var i = 0; i < btnsEditFilme.length; i++) {
     });
 }
 
+// Configura modais de envio de email com ID dinâmico
+var btnsSendEmail = document.getElementsByClassName("abrirEmail");
+for (var i = 0; i < btnsSendEmail.length; i++) {
+    btnsSendEmail[i].addEventListener("click", function () {
+        var idEmail = this.id.replace("abrirEmail", "");
+        var modalEmail = document.getElementById(
+            "modalEmail" + idEmail
+        );
+
+        modalEmail.style.display = "flex";
+        document.body.style.overflow = "hidden";
+
+        var spanEmail =
+            modalEmail.getElementsByClassName("fecharEmail")[0];
+        spanEmail.onclick = function () {
+            modalEmail.style.display = "none";
+            document.body.style.overflow = "auto";
+        };
+    });
+}
+
 // Modal de alerta exibido ao carregar a página
 var modalAlert = document.getElementById("modalAlert");
 var modalContent = document.getElementById("modalContentAlert");

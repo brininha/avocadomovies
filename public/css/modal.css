@@ -161,13 +161,14 @@ label {
     text-align: left;
     display: block;
     width: fit-content;
-    padding-block: 10px;
+    padding-top: 10px;
     cursor: help;
     border-radius: 100%;
 }
 
 .btn-info:hover ~ .text-info {
     display: block;
+    padding-top: 10px;
 }
 
 .text-info {

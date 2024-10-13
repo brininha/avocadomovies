@@ -28,32 +28,28 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($usuarios as $filme)
-            @if ($filme->excluido == 0)
+            @foreach ($usuarios as $usuario)
+            @if ($usuario->excluido == 0)
               <tr>
-                <td>{{ $filme->nomeCliente }}</td>
-                <td>{{ $filme->emailCliente }}</td>
-                <td>{{ $filme->telefoneCliente }}</td>
+                <td>{{ $usuario->nomeCliente }}</td>
+                <td>{{ $usuario->emailCliente }}</td>
+                <td>{{ $usuario->telefoneCliente }}</td>
                 <td>
-                @if (isset($filme->dataCriacao))
-                {{ \Carbon\Carbon::parse($filme->dataCriacao)->format('d/m/Y') }}
+                @if (isset($usuario->dataCriacao))
+                {{ \Carbon\Carbon::parse($usuario->dataCriacao)->format('d/m/Y') }}
                 @else
                 Indefinida
                 @endif
                 </td>
-                <td><button class="btn btn-normal">✏️</button></td>
+                <td><a class="btn btn-normal"><i class="far fa-edit"></i></a></td>
                 <td>
-                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $filme->idCliente }}">🗑️</a>
-                  <div id="modalExclusao{{ $filme->idCliente }}" class="modal modal-exclusao">
-                    <div class="modal-content">
-                      <span class="fecharExclusao">&times;</span>
-                      <p>Tem certeza que quer excluir esse usuário?</p>
-                      <form action="{{ route('usuarios.deletar', $filme->idCliente) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" class="btn btn-modal">Sim</button>
-                      </form>
-                    </div>
+                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $usuario->idCliente }}"><i class="far fa-trash-alt"></i></a>
+
+                  <x-modal-exclusao 
+                      :modalId="'modalExclusao'.$usuario->idCliente" 
+                      :url="route('usuarios.deletar', $usuario->idCliente)" 
+                      :mensagem="'Tem certeza que quer excluir esse usuário?'"
+                  />
                 </td>
               </tr>
             @endif
@@ -68,14 +64,13 @@
       <div id="modalAlert" class="modal">
           <div class="modal-content">
               <p>{{ session('message') }}</p>
-              <span class="fecharMensagem">&times;</span>
+              <span class="fecharMensagem fecharBtn">&times;</span>
           </div>
       </div>
   @endif
   </div>
 
-  <script src="{{ asset('js/modalAlert.js') }}"></script>
-  <script src="{{ asset('js/modalExclusao.js') }}"></script>
+  <script src="{{ asset('js/modais.js') }}"></script>
 </body>
 
 </html>

@@ -32,8 +32,6 @@
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="{{ asset('js/columnChart.js') }}"></script>
-  <script src="{{ asset('js/modalAlert.js') }}"></script>
-  <script src="{{ asset('js/modalExclusao.js') }}"></script>
 </body>
 
 </html>
