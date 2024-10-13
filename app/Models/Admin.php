@@ -4,17 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cliente extends Model
+class Admin extends Model
 {
-    protected $table = 'tbCliente';
-    protected $primaryKey = 'idCliente';
+    protected $table = 'tbAdmin';
+    protected $primaryKey = 'idAdmin';
     public $timestamps = false;
 
     protected $fillable = [
         'idUsuario',
-        'cpfCliente',
-        'telefoneCliente',
-        'dataNascCliente',
     ];
 
     public function usuario()

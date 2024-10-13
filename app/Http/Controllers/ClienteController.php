@@ -1,112 +1,234 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Usuario;
 use App\Models\Cliente;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Rules\Cpf;
+
 
 class ClienteController extends Controller
 {
-    public function read(Request $request)
+    /**
+     * Exibir o dashboard do cliente.
+     */
+    // public function dashboard()
+    // {
+    //     $usuario = auth()->user()->load('cliente');
+
+    //     return view('cliente.dashboard', compact('usuario'));
+    // }
+
+    /**
+     * Exibir a lista de todos os clientes (Apenas Admin).
+     */
+    public function index()
     {
-        $usuarios = Cliente::all()->sortBy('nomeCliente');
+        $clientes = Usuario::where('tipoUsuario', 'cliente')->with('cliente')->get();
 
-        if ($request->has('view') && $request->view == 'adminHome') {
-            return view('admin/home', compact('usuarios'));
-        }
-
-        return view('admin/usuarios', compact('usuarios'));
+        return view('admin.clientes.index', compact('clientes'));
     }
+
+    /**
+     * Exibir o formulário de criação de cliente (Apenas Admin).
+     */
+    public function create()
+    {
+        return view('admin.clientes.create');
+    }
+
+    /**
+     * Armazenar um novo cliente (Apenas Admin).
+     */
     public function store(Request $request)
     {
-        // Validação de dados
+        // Validação dos dados
         $validated = $request->validate([
-            'nomeCliente' => 'required|string|max:255',
-            'emailCliente' => 'required|email|unique:tbCliente,emailCliente',
+            'nomeUsuario' => 'required|string|max:255',
+            'emailUsuario' => 'required|email|unique:tbUsuario,emailUsuario',
+            'senhaUsuario' => 'required|string|min:6|confirmed',
+            'cpfCliente' => ['required', new Cpf(), 'unique:tbCliente,cpfCliente'],
             'telefoneCliente' => 'required|string|max:20',
-            'senhaCliente' => 'required|string|min:6',
+            'dataNascCliente' => 'required|date',
         ]);
 
-        try {
-            $cliente = new Cliente();
-            $cliente->nomeCliente = $validated['nomeCliente'];
-            $cliente->emailCliente = $validated['emailCliente'];
-            $cliente->telefoneCliente = $validated['telefoneCliente'];
-            $cliente->senhaCliente = bcrypt($validated['senhaCliente']); // Criptografando a senha
-            $cliente->save();
+        // Iniciar uma transação para garantir a consistência dos dados
+        DB::beginTransaction();
 
-            return redirect()->back()->with('message', 'Cadastro feito com sucesso! 🎉');
+        try {
+            $usuario = Usuario::create([
+                'nomeUsuario' => $validated['nomeUsuario'],
+                'emailUsuario' => $validated['emailUsuario'],
+                'senhaUsuario' => Hash::make($validated['senhaUsuario']),
+                'tipoUsuario' => 'cliente',
+            ]);
+
+            // Criar o registro na tabela 'cliente'
+            Cliente::create([
+                'idUsuario' => $usuario->idUsuario,
+                'cpfCliente' => $validated['cpfCliente'],
+                'telefoneCliente' => $validated['telefoneCliente'],
+                'dataNascCliente' => $validated['dataNascCliente'],
+            ]);
+
+            // Confirmar a transação
+            DB::commit();
+
+            // Redirecionar com uma mensagem de sucesso
+            return redirect()->route('clientes.index')->with('message', 'Cliente cadastrado com sucesso! 🎉');
+
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Erro ao criar o usuário!' . $e->getMessage()]);
+            // Reverter a transação em caso de erro
+            DB::rollBack();
+
+            // Redirecionar de volta com uma mensagem de erro
+            return redirect()->back()->withErrors(['error' => 'Erro ao realizar o cadastro: ' . $e->getMessage()])->withInput();
         }
     }
 
+    /**
+     * Exibir o formulário de edição de cliente (Apenas Admin).
+     */
+    public function edit($id)
+    {
+        $usuario = Usuario::where('idUsuario', $id)->where('tipoUsuario', 'cliente')->with('cliente')->firstOrFail();
+
+        return view('admin.clientes.edit', compact('usuario'));
+    }
+
+    /**
+     * Atualizar um cliente existente (Apenas Admin).
+     */
     public function update(Request $request, $id)
     {
-        // Validação de dados
+        // Validação dos dados
         $validated = $request->validate([
-            'nomeCliente' => 'required|string|max:255',
-            'emailCliente' => 'required|email|unique:clientes,emailCliente,' . $id . ',idCliente',
+            'nomeUsuario' => 'required|string|max:255',
+            'emailUsuario' => 'required|email|unique:usuario,emailUsuario,' . $id . ',idUsuario',
+            'senhaUsuario' => 'nullable|string|min:6|confirmed',
+            'cpfCliente' => 'required|cpf|unique:cliente,cpfCliente,' . $id . ',idCliente',
             'telefoneCliente' => 'required|string|max:20',
-            'senhaCliente' => 'nullable|string|min:6',
+            'dataNascCliente' => 'required|date',
         ]);
+
+        // Iniciar uma transação para garantir a consistência dos dados
+        DB::beginTransaction();
 
         try {
-            Cliente::where('idCliente', $id)->update([
-                'nomeCliente' => $validated['nomeCliente'],
-                'emailCliente' => $validated['emailCliente'],
-                'telefoneCliente' => $validated['telefoneCliente'],
-                'senhaCliente' => $validated['senhaCliente'] ? bcrypt($validated['senhaCliente']) : Cliente::find($id)->senhaCliente,
-            ]);
+            // Atualizar o registro na tabela 'usuario'
+            $usuario = Usuario::where('idUsuario', $id)->where('tipoUsuario', 'cliente')->firstOrFail();
+            $usuario->nomeUsuario = $validated['nomeUsuario'];
+            $usuario->emailUsuario = $validated['emailUsuario'];
+            if (!empty($validated['senhaUsuario'])) {
+                $usuario->senhaUsuario = Hash::make($validated['senhaUsuario']);
+            }
+            $usuario->save();
 
-            return response()->json([
-                'message' => 'Cliente atualizado com sucesso!',
-                'code' => 200,
-            ]);
+            // Atualizar o registro na tabela 'cliente'
+            $cliente = Cliente::where('idUsuario', $id)->firstOrFail();
+            $cliente->cpfCliente = $validated['cpfCliente'];
+            $cliente->telefoneCliente = $validated['telefoneCliente'];
+            $cliente->dataNascCliente = $validated['dataNascCliente'];
+            $cliente->save();
+
+            // Confirmar a transação
+            DB::commit();
+
+            // Redirecionar com uma mensagem de sucesso
+            return redirect()->route('clientes.index')->with('message', 'Cliente atualizado com sucesso! 🎉');
+
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Erro ao criar o usuário: ' . $e->getMessage()]);
+            // Reverter a transação em caso de erro
+            DB::rollBack();
+
+            // Redirecionar de volta com uma mensagem de erro
+            return redirect()->back()->withErrors(['error' => 'Erro ao atualizar o cliente: ' . $e->getMessage()])->withInput();
         }
     }
 
+    /**
+     * Excluir um cliente (Apenas Admin).
+     */
     public function destroy($id)
     {
-        Cliente::where('idCliente', $id)->update([
-            'excluido' => 1,
-        ]);
+        // Iniciar uma transação para garantir a consistência dos dados
+        DB::beginTransaction();
 
-        return redirect()->back()->with('message', 'Usuário excluído com sucesso!');
+        try {
+            // Encontrar o usuário e o cliente
+            $usuario = Usuario::where('idUsuario', $id)->where('tipoUsuario', 'cliente')->firstOrFail();
+            $cliente = Cliente::where('idUsuario', $id)->firstOrFail();
+
+            // Excluir o cliente e o usuário
+            $cliente->delete();
+            $usuario->delete();
+
+            // Confirmar a transação
+            DB::commit();
+
+            // Redirecionar com uma mensagem de sucesso
+            return redirect()->route('clientes.index')->with('message', 'Cliente excluído com sucesso!');
+
+        } catch (\Exception $e) {
+            // Reverter a transação em caso de erro
+            DB::rollBack();
+
+            // Redirecionar de volta com uma mensagem de erro
+            return redirect()->back()->withErrors(['error' => 'Erro ao excluir o cliente: ' . $e->getMessage()]);
+        }
     }
 
-    public function login(Request $request)
+    /**
+     * Processar o cadastro de um novo cliente.
+     * Utilizado para registro por parte dos clientes (não Admin).
+     */
+    public function registro(Request $request)
     {
-        $credentials = $request->validate([
-            'emailCliente' => ['required', 'email'],
-            'senhaCliente' => ['required'],
+        // Validação dos dados
+        $validated = $request->validate([
+            'nomeUsuario' => 'required|string|max:255',
+            'emailUsuario' => 'required|email|unique:tbUsuario,emailUsuario',
+            'senhaUsuario' => 'required|string|min:6|confirmed',
+            'cpfCliente' => ['required', new Cpf(), 'unique:tbCliente,cpfCliente'],
+            'telefoneCliente' => 'required|string|max:20',
+            'dataNascCliente' => 'required|date',
         ]);
 
-        $cliente = Cliente::where('emailCliente', $request->emailCliente)->first();
-    
-        // Tenta login com emailCliente e senhaCliente
-        if (Auth::attempt(['emailCliente' => $request->emailCliente, 'password' => $request->senhaCliente])) {
-            // Regenera a sessão para evitar ataques de fixação de sessão
-            $request->session()->regenerate();
-    
-            // Redireciona para a página pretendida (admin)
-            if ($cliente->tipoCliente == 1) {
-                return redirect()->intended('admin');
-            } else {
-                return back()->with([
-                    'message' => 'Área do usuário em desenvolvimento.',
-                ]);
-            }
+        // Iniciar uma transação para garantir a consistência dos dados
+        DB::beginTransaction();
+
+        try {
+            // Criar o registro na tabela 'usuario'
+            $usuario = Usuario::create([
+                'nomeUsuario' => $validated['nomeUsuario'],
+                'emailUsuario' => $validated['emailUsuario'],
+                'senhaUsuario' => Hash::make($validated['senhaUsuario']),
+                'tipoUsuario' => 'cliente',
+            ]);
+
+            // Criar o registro na tabela 'cliente'
+            Cliente::create([
+                'idUsuario' => $usuario->idUsuario,
+                'cpfCliente' => $validated['cpfCliente'],
+                'telefoneCliente' => $validated['telefoneCliente'],
+                'dataNascCliente' => $validated['dataNascCliente'],
+            ]);
+
+            // Confirmar a transação
+            DB::commit();
+
+            // Redirecionar com uma mensagem de sucesso
+            return redirect()->back()->with('message', 'Cadastro realizado com sucesso!');
+
+        } catch (\Exception $e) {
+            // Reverter a transação em caso de erro
+            DB::rollBack();
+
+            // Redirecionar de volta com uma mensagem de erro
+            return redirect()->back()->withErrors(['error' => 'Erro ao realizar o cadastro: ' . $e->getMessage()])->withInput();
         }
-    
-        // Retorna erro se as credenciais forem inválidas
-        return back()->withErrors([
-            'emailCliente' => 'As credenciais fornecidas não correspondem aos nossos registros.',
-        ])->onlyInput('emailCliente');    
     }
 }
-
-?>
