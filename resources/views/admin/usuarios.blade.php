@@ -22,7 +22,7 @@
             <tr>
               <th>Nome</th>
               <th>E-mail</th>
-              <th>Telefone</th>
+              <th>Tipo</th>
               <th>Data de criação</th>
               <th colspan="2">Gerenciar</th>
             </tr>
@@ -31,9 +31,9 @@
             @foreach ($usuarios as $usuario)
             @if ($usuario->excluido == 0)
               <tr>
-                <td>{{ $usuario->nomeCliente }}</td>
-                <td>{{ $usuario->emailCliente }}</td>
-                <td>{{ $usuario->telefoneCliente }}</td>
+                <td>{{ $usuario->nomeUsuario }}</td>
+                <td>{{ $usuario->emailUsuario }}</td>
+                <td style="text-transform: capitalize">{{ $usuario->tipoUsuario }}</td>
                 <td>
                 @if (isset($usuario->dataCriacao))
                 {{ \Carbon\Carbon::parse($usuario->dataCriacao)->format('d/m/Y') }}
@@ -43,11 +43,11 @@
                 </td>
                 <td><a class="btn btn-normal"><i class="far fa-edit"></i></a></td>
                 <td>
-                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $usuario->idCliente }}"><i class="far fa-trash-alt"></i></a>
+                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $usuario->idUsuario }}"><i class="far fa-trash-alt"></i></a>
 
                   <x-modal-exclusao 
-                      :modalId="'modalExclusao'.$usuario->idCliente" 
-                      :url="route('usuarios.deletar', $usuario->idCliente)" 
+                      :modalId="'modalExclusao'.$usuario->idUsuario" 
+                      :url="route('usuarios.deletar', $usuario->idUsuario)" 
                       :mensagem="'Tem certeza que quer excluir esse usuário?'"
                   />
                 </td>
@@ -57,8 +57,12 @@
           </tbody>
         </table>
       </div>
+      <button class="btn" id="abrirFilme" style="margin-top: 20px">Adicionar cliente</button>
+      <button class="btn" id="abrirAdmin" style="margin-top: 20px">Adicionar administrador</button>
+      @include('admin/partials/modal-admin')
     </div>
   </div>
+
 
   @if (session('message'))
       <div id="modalAlert" class="modal">
@@ -71,6 +75,11 @@
   </div>
 
   <script src="{{ asset('js/modais.js') }}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      configurarModal("modalAdmin", "abrirAdmin", "fecharAdmin");
+    });
+  </script>
 </body>
 
 </html>
