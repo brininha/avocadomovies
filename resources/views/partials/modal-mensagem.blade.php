@@ -1,7 +1,7 @@
 @if (session('message'))
 <div id="modalAlert" class="modal">
     <div class="modal-content">
-        <p>{{ session('message') }}</p>
+        <p style="text-align: center">{{ session('message') }}</p>
         <span class="fecharMensagem fecharBtn">&times;</span>
     </div>
 </div>

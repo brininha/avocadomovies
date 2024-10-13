@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\GeneroController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -48,16 +50,26 @@ Route::get('/admin/generos', [GeneroController::class, 'read']);
 
 Route::post('/enviar-contato', [ContatoController::class, 'store']);
 
-Route::post('/cadastrar-usuario', [ClienteController::class, 'store']);
-
 Route::post('/adicionar-genero', [GeneroController::class, 'store']);
 
 Route::post('/adicionar-filme', [FilmeController::class, 'store']);
-
-Route::post('/login', [ClienteController::class, 'login']);
 
 Route::post('responder-mensagem', [ContatoController::class, 'enviarMensagem']);
 
 Route::get('/emails/contato', function () {
     return view ('emails/contato');
 })->name('emails.contato');
+
+// rotas de autenticação
+Route::post('/login', [UsuarioController::class, 'login'])->name('login.envio');
+Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
+
+// rotas de cadastro de cliente
+Route::post('/registro/cliente', [ClienteController::class, 'registro'])->name('registro.cliente.envio');
+
+// rotas de cadastro de admin
+Route::post('/registro/admin', [AdminController::class, 'store'])->name('registro.admin.envio');
+
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+Route::get('/admin/usuarios', [AdminController::class, 'usuarios'])->name('admin.usuarios');
