@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contato;
+use App\Mail\ContatoMail;
+use Illuminate\Support\Facades\Mail;
 
 class ContatoController extends Controller
 {
     // Método para obter todos os contatos
     public function read()
     {
-        $contato = Contato::all();
-        return response()->json($contato);
+        $contatos = Contato::orderBy('dataContato')->get();
+        
+        return view('admin/contatos', compact('contatos'));
     }
 
     // Método para salvar novos dados de contato
@@ -53,12 +56,11 @@ class ContatoController extends Controller
     // Método para excluir um contato
     public function destroy($id)
     {
-        Contato::where('idContato', $id)->delete();
-
-        return response()->json([
-            'message' => 'Dados excluídos com sucesso',
-            'code' => 200,
+        Contato::where('idContato', $id)->update([
+            'excluido' => 1,
         ]);
+
+        return redirect()->back()->with('message', 'Contato excluído com sucesso!');
     }
 
     // Método alternativo para inserção (com redirect)
@@ -87,5 +89,18 @@ class ContatoController extends Controller
             'assuntoContato' => 'required|string|max:255',
             'mensagemContato' => 'required|string',
         ]);
+    }
+
+    public function enviarMensagem(Request $request)
+    {
+        $dados = $request->validate([
+            'emailDestinatario' => 'required|email',
+            'mensagemEmail' => 'required',
+        ]);
+
+        // Enviar o e-mail
+        Mail::to($dados['emailDestinatario'])->send(new ContatoMail($dados['emailDestinatario'], $dados['mensagemEmail']));
+
+        return back()->with('message', 'E-mail enviado com sucesso!');
     }
 }
