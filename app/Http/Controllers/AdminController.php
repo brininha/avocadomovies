@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Admin;
 use App\Models\Cliente;
+use App\Models\Filme;
+use App\Models\Genero;
+use App\Models\Idioma;
+use App\Models\Contato;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,6 +33,25 @@ class AdminController extends Controller
         return view('admin.usuarios', compact('usuarios', 'clientes', 'admins'));
     }
 
+    public function filmes(Request $request)
+    {
+        $filmes = Filme::orderBy('nomeFilme')->get();
+        $generos = Genero::all();
+        $idiomas = Idioma::all();
+        return view('admin.filmes', compact('filmes', 'generos', 'idiomas'));
+    }
+
+    public function generos(Request $request)
+    {
+        $generos = Genero::orderBy('nomeGenero')->get();
+        return view('admin.generos', compact('generos'));
+    }
+
+    public function contatos(Request $request)
+    {
+        $contatos = Contato::orderBy('dataContato')->get();
+        return view('admin.contatos', compact('contatos'));
+    }
     /**
      * Exibir a lista de todos os admins (Apenas Admin).
      */
