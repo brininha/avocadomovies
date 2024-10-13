@@ -21,32 +21,14 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Route::get('/sobre', function () {
-    return view ('sobre');
+    return view('sobre');
 });
-
-Route::put('/deletar-usuario/{id}', [ClienteController::class, 'destroy'])->name('usuarios.deletar');
-
-Route::put('/deletar-filme/{id}', [FilmeController::class, 'destroy'])->name('filmes.deletar');
-
-Route::put('/deletar-contato/{id}', [ContatoController::class, 'destroy'])->name('contatos.deletar');
-
-Route::put('/deletar-genero/{id}', [GeneroController::class, 'destroy'])->name('generos.deletar');
 
 Route::put('editar-filme/{id}', [FilmeController::class, 'update']);
 
 Route::get('/', [FilmeController::class, 'read']);
 
 Route::get('/filme/{id}', [FilmeController::class, 'find']);
-
-Route::get('/admin', [ClienteController::class, 'read']);
-
-Route::get('/admin/usuarios', [ClienteController::class, 'read']);
-
-Route::get('/admin/filmes', [FilmeController::class, 'read']);
-
-Route::get('/admin/contatos', [ContatoController::class, 'read']);
-
-Route::get('/admin/generos', [GeneroController::class, 'read']);
 
 Route::post('/enviar-contato', [ContatoController::class, 'store']);
 
@@ -57,7 +39,7 @@ Route::post('/adicionar-filme', [FilmeController::class, 'store']);
 Route::post('responder-mensagem', [ContatoController::class, 'enviarMensagem']);
 
 Route::get('/emails/contato', function () {
-    return view ('emails/contato');
+    return view('emails/contato');
 })->name('emails.contato');
 
 // rotas de autenticação
@@ -70,6 +52,23 @@ Route::post('/registro/cliente', [ClienteController::class, 'registro'])->name('
 // rotas de cadastro de admin
 Route::post('/registro/admin', [AdminController::class, 'store'])->name('registro.admin.envio');
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-Route::get('/admin/usuarios', [AdminController::class, 'usuarios'])->name('admin.usuarios');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('isAdmin');
+
+    Route::get('/admin/usuarios', [AdminController::class, 'usuarios'])->name('admin.usuarios')->middleware('isAdmin');
+
+    Route::get('/admin/filmes', [AdminController::class, 'filmes'])->name('admin.filmes')->middleware('isAdmin');
+
+    Route::get('/admin/generos', [AdminController::class, 'generos'])->name('admin.generos')->middleware('isAdmin');
+
+    Route::get('/admin/contatos', [AdminController::class, 'contatos'])->name('admin.contatos')->middleware('isAdmin');
+
+    Route::put('/exclusao/usuario/{id}', [ClienteController::class, 'destroy'])->name('usuarios.deletar')->middleware('isAdmin');
+
+    Route::put('/exclusao/filme/{id}', [FilmeController::class, 'destroy'])->name('filmes.deletar')->middleware('isAdmin');
+
+    Route::put('/exclusao/contato/{id}', [ContatoController::class, 'destroy'])->name('contatos.deletar')->middleware('isAdmin');
+
+    Route::put('/exclusao/genero/{id}', [GeneroController::class, 'destroy'])->name('generos.deletar')->middleware('isAdmin');
+});

@@ -2,13 +2,13 @@
     <div class="modal-content">
         <span class="fecharLogin fecharBtn">&times;</span>
         <h2>Login</h2>
-        <form method="post" action="{{url('login')}}">
+        <form method="post" action="{{ route('login.envio') }}">
             @csrf
             <div class="input-div">
-                <input type="email" required name="emailCliente" placeholder="E-mail">
+                <input type="email" required name="emailUsuario" placeholder="E-mail">
             </div>
             <div class="input-div">
-                <input type="password" required name="senhaCliente" placeholder="Senha">
+                <input type="password" required name="senhaUsuario" placeholder="Senha">
             </div>
             <button type="submit" class="btn btn-primary">Acessar</button>
         </form>

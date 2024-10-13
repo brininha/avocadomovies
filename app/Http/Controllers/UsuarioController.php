@@ -20,7 +20,7 @@ class UsuarioController extends Controller
             'senhaUsuario' => ['required'],
         ]);
 
-        if (Auth::attempt(['emailUsuario' => $validacao['emailUsuario'], 'senhaUsuario' => $validacao['senhaUsuario']])) {
+        if (Auth::attempt(['emailUsuario' => $validacao['emailUsuario'], 'password' => $validacao['senhaUsuario']])) {
             $request->session()->regenerate();
 
             $usuario = Auth::user();
@@ -50,6 +50,6 @@ class UsuarioController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('message', 'Logout realizado com sucesso!');
+        return redirect('/')->with('message', 'Logout realizado com sucesso!');
     }
 }

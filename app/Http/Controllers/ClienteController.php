@@ -158,26 +158,22 @@ class ClienteController extends Controller
         DB::beginTransaction();
 
         try {
-            // Encontrar o usuário e o cliente
-            $usuario = Usuario::where('idUsuario', $id)->where('tipoUsuario', 'cliente')->firstOrFail();
-            $cliente = Cliente::where('idUsuario', $id)->firstOrFail();
+            $usuario = Usuario::where('idUsuario', $id);
 
-            // Excluir o cliente e o usuário
-            $cliente->delete();
-            $usuario->delete();
+            $usuario->update(['excluido' => 1]);
 
             // Confirmar a transação
             DB::commit();
 
             // Redirecionar com uma mensagem de sucesso
-            return redirect()->route('clientes.index')->with('message', 'Cliente excluído com sucesso!');
+            return redirect()->back()->with('message', 'Cliente excluído com sucesso!');
 
         } catch (\Exception $e) {
             // Reverter a transação em caso de erro
             DB::rollBack();
 
             // Redirecionar de volta com uma mensagem de erro
-            return redirect()->back()->withErrors(['error' => 'Erro ao excluir o cliente: ' . $e->getMessage()]);
+            // return redirect()->back()->withErrors(['error' => 'Erro ao marcar o cliente como excluído: ' . $e->getMessage()]);
         }
     }
 
