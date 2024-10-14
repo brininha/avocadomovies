@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genero;
+use App\Models\Filme;
 use Illuminate\Http\Request;
 
 class GeneroController extends Controller
@@ -75,6 +76,7 @@ class GeneroController extends Controller
     // Excluir um gênero
     public function destroy($id)
     {
+        Filme::where('idGenero', $id)->update(['idGenero' => 1]);
         Genero::where('idGenero', $id)->update([
             'excluido' => 1,
         ]);

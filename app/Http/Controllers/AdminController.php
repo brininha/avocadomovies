@@ -10,6 +10,7 @@ use App\Models\Filme;
 use App\Models\Genero;
 use App\Models\Idioma;
 use App\Models\Contato;
+use App\Models\Cinema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -51,6 +52,13 @@ class AdminController extends Controller
     {
         $contatos = Contato::orderBy('dataContato')->get();
         return view('admin.contatos', compact('contatos'));
+    }
+
+    public function cinemas(Request $request)
+    {
+        $cinemas = Cinema::orderBy('nomeCinema')->get();
+        
+        return view('admin.cinemas', compact('cinemas'));
     }
     /**
      * Exibir a lista de todos os admins (Apenas Admin).

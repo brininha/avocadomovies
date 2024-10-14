@@ -26,23 +26,23 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($generos as $contato)
-            @if ($contato->excluido == 0)
+            @foreach ($generos as $genero)
+            @if ($genero->excluido == 0 && $genero->nomeGenero != 'Indefinido')
               <tr>
-                <td>{{ $contato->nomeGenero }}</td>
+                <td>{{ $genero->nomeGenero }}</td>
                 <td>
-                @if (isset($contato->dataCriacao))
-                {{ \Carbon\Carbon::parse($contato->dataCriacao)->format('d/m/Y') }}
+                @if (isset($genero->dataCriacao))
+                {{ \Carbon\Carbon::parse($genero->dataCriacao)->format('d/m/Y') }}
                 @else
                 Indefinida
                 @endif
                 </td>
                 <td><a class="btn btn-normal"><i class="far fa-edit"></i></a></td>
                 <td>
-                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $contato->idGenero }}"><i class="far fa-trash-alt"></i></a>
+                  <a class="btn btn-normal abrirExclusao" id="abrirExclusao{{ $genero->idGenero }}"><i class="far fa-trash-alt"></i></a>
                   <x-modal-exclusao 
-                    :modalId="'modalExclusao'.$contato->idGenero" 
-                    :url="route('generos.deletar', $contato->idGenero)" 
+                    :modalId="'modalExclusao'.$genero->idGenero" 
+                    :url="route('generos.deletar', $genero->idGenero)" 
                     :mensagem="'Tem certeza que quer excluir esse gênero?'"
                   />
                 </td>
