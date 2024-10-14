@@ -41,7 +41,7 @@
                         </tr>
                         <tr>
                             <th>Gênero:</th>
-                            <td>{{ $contato->nomeGenero }}</td>
+                            <td>{{ $genero->nomeGenero }}</td>
                         </tr>
                         <tr>
                             <th>Faixa Etária:</th>

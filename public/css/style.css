@@ -213,13 +213,20 @@ body {
     opacity: 0;
 }
 
+.movie-list-item-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px;
+}
+
 .movie-list-item:hover .movie-list-item-desc.active,
 .movie-list-item-title.active {
     color: black;
 }
 
 .movie-list-item:hover .movie-list-item-title,
-.movie-list-item:hover .movie-list-item-info {
+.movie-list-item:hover .movie-list-item-desc, .movie-list-item:hover .faixa-etaria {
     opacity: 1;
 }
 
@@ -253,7 +260,7 @@ body {
     display: block;
 }
 
-.movie-list-item-info {
+.movie-list-item-desc {
     padding: 10px;
     font-size: 18px;
     opacity: 0;
@@ -261,6 +268,19 @@ body {
     text-align: center;
     color: rgba(255, 255, 255, 0.8);
     display: block;
+    width: fit-content;
+}
+
+.faixa-etaria {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    opacity: 0;
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    transition: 1s all ease-in-out;
+    text-align: center;
 }
 
 .movie-list-item-button {
@@ -398,3 +418,4 @@ body {
 .about-title.active p {
     color: #000000;
 }
+

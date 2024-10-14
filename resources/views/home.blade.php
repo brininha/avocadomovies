@@ -34,11 +34,29 @@
                                 @if ($f->disponibilidadeFilme == 1 && $f->excluido == 0)
                                     <div class="movie-list-item">
                                         <a href="{{ url('/filme/' . $f->idFilme) }}">
-                                            <img class="movie-list-item-img" src="{{ asset('storage/images/' . $f->capaFilme) }}">
+                                            <img class="movie-list-item-img"
+                                                src="{{ asset('storage/images/' . $f->capaFilme) }}">
                                             <div class="movie-list-item-text">
                                                 <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
-                                                <span
-                                                    class="movie-list-item-info">{{ $generos->firstWhere('idGenero', $f->idGenero)->nomeGenero }}</span>
+                                                <div class="movie-list-item-info">
+                                                    @if ($f->faixaEtariaFilme == 'L')
+                                                        <span style="background-color: green" class="faixa-etaria">L</span>
+                                                    @elseif ($f->faixaEtariaFilme == '10')
+                                                        <span style="background-color: deepskyblue" class="faixa-etaria">10</span>
+                                                    @elseif ($f->faixaEtariaFilme == '12')
+                                                        <span style="background-color: gold" class="faixa-etaria">12</span>
+                                                    @elseif ($f->faixaEtariaFilme == '14')
+                                                        <span style="background-color: orange" class="faixa-etaria">14</span>
+                                                    @elseif ($f->faixaEtariaFilme == '16')
+                                                        <span style="background-color: red" class="faixa-etaria">16</span>
+                                                    @elseif ($f->faixaEtariaFilme == '18')
+                                                        <span style="background-color: black; border: 1px solid #ffffffac"
+                                                            class="faixa-etaria">18</span>
+                                                    @endif
+                                                    <span
+                                                        class="movie-list-item-desc">{{ $generos->firstWhere('idGenero', $f->idGenero)->nomeGenero }}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
@@ -56,7 +74,8 @@
                                 @if ($f->disponibilidadeFilme == 1 && $f->excluido == 0)
                                     <div class="movie-list-item">
                                         <a href="{{ url('/filme/' . $f->idFilme) }}">
-                                            <img class="movie-list-item-img" src="{{ asset("storage/images/" .$f->capaFilme) }}">
+                                            <img class="movie-list-item-img"
+                                                src="{{ asset("storage/images/" . $f->capaFilme) }}">
                                             <div class="movie-list-item-text">
                                                 <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
                                                 <span class="movie-list-item-info">Ficção</span>
@@ -85,7 +104,8 @@
                                 @if ($f->disponibilidadeFilme == 1 && $f->excluido == 0)
                                     <div class="movie-list-item">
                                         <a href="{{ url('/filme/' . $f->idFilme) }}">
-                                            <img class="movie-list-item-img" src="{{ asset("storage/images/" . $f->capaFilme) }}">
+                                            <img class="movie-list-item-img"
+                                                src="{{ asset("storage/images/" . $f->capaFilme) }}">
                                             <div class="movie-list-item-text">
                                                 <span class="movie-list-item-title">{{$f->nomeFilme}}</span>
                                                 <span class="movie-list-item-info">Ficção</span>
@@ -110,7 +130,7 @@
     <script src="{{ asset('js/modais.js') }}"></script>
     <script src="{{ asset('js/telefone.js') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             configurarModal("modalLogin", "abrirLogin", "fecharLogin");
             configurarModal("modalContato", "abrirContato", "fecharContato");
             configurarModal("modalCadastro", "abrirCadastro", "fecharCadastro");

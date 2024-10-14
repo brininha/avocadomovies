@@ -64,6 +64,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/contatos', [AdminController::class, 'contatos'])->name('admin.contatos')->middleware('isAdmin');
 
+    Route::get('/admin/cinemas', [AdminController::class, 'cinemas'])->name('admin.cinemas')->middleware('isAdmin');
+
     Route::put('/exclusao/usuario/{id}', [ClienteController::class, 'destroy'])->name('usuarios.deletar')->middleware('isAdmin');
 
     Route::put('/exclusao/filme/{id}', [FilmeController::class, 'destroy'])->name('filmes.deletar')->middleware('isAdmin');
