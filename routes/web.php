@@ -7,6 +7,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CinemaController;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -66,6 +67,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/cinemas', [AdminController::class, 'cinemas'])->name('admin.cinemas')->middleware('isAdmin');
 
+    Route::post('/criacao/cinema', [CinemaController::class, 'store'])->name('cinemas.criar')->middleware('isAdmin');
+
     Route::put('/exclusao/usuario/{id}', [ClienteController::class, 'destroy'])->name('usuarios.deletar')->middleware('isAdmin');
 
     Route::put('/exclusao/filme/{id}', [FilmeController::class, 'destroy'])->name('filmes.deletar')->middleware('isAdmin');
@@ -73,4 +76,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/exclusao/contato/{id}', [ContatoController::class, 'destroy'])->name('contatos.deletar')->middleware('isAdmin');
 
     Route::put('/exclusao/genero/{id}', [GeneroController::class, 'destroy'])->name('generos.deletar')->middleware('isAdmin');
+
+    Route::put('/exclusao/cinema/{id}', [CinemaController::class, 'destroy'])->name('cinemas.deletar')->middleware('isAdmin');
+
+    Route::get('/cinemas/dados/localizacao', [CinemaController::class, 'getCinemasLocation'])->middleware('isAdmin');
+
+    Route::get('/filmes/dados/generos', [GeneroController::class, 'getFilmesGeneros'])->middleware('isAdmin');
 });

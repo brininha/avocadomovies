@@ -118,24 +118,12 @@
                         <i class="fas fa-chevron-right arrow"></i>
                     </div>
                 </div>
-                @include('partials/modal-contato')
-                @include('partials/modal-login')
-                @include('partials/modal-cadastro')
-                @include('partials/modal-mensagem')
+                
             </div>
         </div>
         @include('partials/footer')
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/modais.js') }}"></script>
-    <script src="{{ asset('js/telefone.js') }}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            configurarModal("modalLogin", "abrirLogin", "fecharLogin");
-            configurarModal("modalContato", "abrirContato", "fecharContato");
-            configurarModal("modalCadastro", "abrirCadastro", "fecharCadastro");
-        });
-    </script>
 </body>
 
 </html>

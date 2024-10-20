@@ -15,9 +15,9 @@
             <div class="input-div">
                 <label class="input-label" for="idGenero">Gênero</label>
                 <select class="select-div" name="idGenero" id="idGenero" required>
-                    @foreach ($generos as $contato)
-                        @if ($contato->excluido == 0)
-                            <option value="{{ $contato->idGenero }}">{{ $contato->nomeGenero }}</option>
+                    @foreach ($generos as $genero)
+                        @if ($genero->excluido == 0)
+                            <option value="{{ $genero->idGenero }}">{{ $genero->nomeGenero }}</option>
                         @endif
                     @endforeach
                 </select>

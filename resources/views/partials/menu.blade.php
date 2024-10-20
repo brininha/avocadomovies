@@ -36,3 +36,17 @@
         </div>
     </div>
 </div>
+
+@include('partials/modal-contato')
+@include('partials/modal-login')
+@include('partials/modal-cadastro')
+@include('partials/modal-mensagem')
+<script src="{{ asset('js/modais.js') }}"></script>
+<script src="{{ asset('js/telefone.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        configurarModal("modalLogin", "abrirLogin", "fecharLogin");
+        configurarModal("modalContato", "abrirContato", "fecharContato");
+        configurarModal("modalCadastro", "abrirCadastro", "fecharCadastro");
+    });
+</script>

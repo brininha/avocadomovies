@@ -60,6 +60,8 @@ class FilmeController extends Controller
         }
 
         $filme = Filme::create($validatedData);
+
+        return redirect()->back()->with('message', 'Filme cadastrado com sucesso!');
     }
 
 
@@ -78,7 +80,7 @@ class FilmeController extends Controller
             'dataEntradaCartaz' => 'required|date',
             'dataSaidaCartaz' => 'required|date',
             'trailerFilme' => 'required|url',
-            'capaFilme' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Permitindo que a imagem seja opcional
+            'capaFilme' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $filme = Filme::findOrFail($id);
@@ -107,7 +109,7 @@ class FilmeController extends Controller
 
         $filme->save();
 
-        return redirect()->back()->with('success', 'Filme atualizado com sucesso!');
+        return redirect()->back()->with('message', 'Filme atualizado com sucesso!');
     }
 
 

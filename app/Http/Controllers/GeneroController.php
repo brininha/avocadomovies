@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Genero;
 use App\Models\Filme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class GeneroController extends Controller
 {
     public function index() {
-        $generos = Genero::where('excluido', 0)->get();
+        $generos = Genero::where('excluido', 0)->orderBy('nomeGenero')->get();
         return response()->json($generos);
     }
 
@@ -82,5 +84,16 @@ class GeneroController extends Controller
         ]);
 
         return redirect()->back()->with('message', 'Gênero excluído com sucesso!');
+    }
+
+    public function getFilmesGeneros()
+    {
+        $generos = DB::table('tbfilme')
+        ->join('tbgenero', 'tbfilme.idGenero', '=', 'tbgenero.idGenero')
+        ->select('tbgenero.nomeGenero', DB::raw('count(tbfilme.idGenero) as total'))->where('nomeGenero', "<>", 'Indefinido')
+        ->groupBy('tbgenero.nomeGenero')
+        ->get();
+
+        return response()->json($generos);
     }
 }

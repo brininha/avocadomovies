@@ -16,12 +16,12 @@
             <div class="input-div">
                 <label class="input-label" for="idGenero">Gênero</label>
                 <select class="select-div" name="idGenero" id="idGenero" required>
-                    @foreach ($generos as $contato)
-                        @if ($contato->excluido == 0)
-                            @if ($contato->idGenero == $filme->idGenero)
-                                <option value="{{ $contato->idGenero }}" selected>{{ $contato->nomeGenero }}</option>
+                    @foreach ($generos as $genero)
+                        @if ($genero->excluido == 0)
+                            @if ($genero->idGenero == $filme->idGenero)
+                                <option value="{{ $genero->idGenero }}" selected>{{ $genero->nomeGenero }}</option>
                             @else
-                                <option value="{{ $contato->idGenero }}">{{ $contato->nomeGenero }}</option>
+                                <option value="{{ $genero->idGenero }}">{{ $genero->nomeGenero }}</option>
                             @endif
                         @endif
                     @endforeach

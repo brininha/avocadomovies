@@ -25,7 +25,7 @@ function drawDualY() {
         chart: {
           title: 'Vendas de ingressos no último ano',
         },
-        colors: '#3a6213',
+        colors: '#fbf089',
         series: {
           0: {axis: 'unitsSold'},
         },
@@ -39,6 +39,6 @@ function drawDualY() {
         },
       };
 
-      var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
+      var materialChart = new google.charts.Bar(document.getElementById('columnchart_div'));
       materialChart.draw(data, options);
     }
