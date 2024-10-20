@@ -13,7 +13,7 @@ function getGeolocationAndSend(cep, numero, nome, telefone, dataInauguracao, cre
             const bairro = viacepData.bairro;
 
             const formattedAddress = `${logradouro}, ${numero}, ${cidade}, ${estado}, Brasil`;
-            fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(formattedAddress)}&key=AIzaSyAo0dsoN2YIl72R_WAqN773aX34lKD-MiM`)
+            fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(formattedAddress)}&key=`)
                 .then(response => response.json())
                 .then(geoData => {
                     if (geoData.status === 'OK') {
