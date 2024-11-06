@@ -59,3 +59,7 @@ Route::delete('/deleteCliente/{id}', 'App\Http\Controllers\ClienteController@des
 Route::delete('/deleteContato/{id}', 'App\Http\Controllers\ContatoController@destroy');
 
 Route::delete('/deleteGenero/{id}', 'App\Http\Controllers\GeneroController@destroy');
+
+// Route::post('/registro/cliente', 'App\Http\Controllers\ClienteController@registro');
+
+Route::get('/filmes/dados/generos', 'App\Http\Controllers\GeneroController@getFilmesGenero');
