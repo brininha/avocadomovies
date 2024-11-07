@@ -216,15 +216,15 @@ class ClienteController extends Controller
             // Confirmar a transação
             DB::commit();
 
-            // Redirecionar com uma mensagem de sucesso
-            return redirect()->back()->with('message', 'Cadastro realizado com sucesso!');
+            // Retornar uma resposta JSON com sucesso
+            return response()->json(['message' => 'Cadastro realizado com sucesso!'], 200);
 
         } catch (\Exception $e) {
             // Reverter a transação em caso de erro
             DB::rollBack();
 
-            // Redirecionar de volta com uma mensagem de erro
-            return redirect()->back()->withErrors(['error' => 'Erro ao realizar o cadastro: ' . $e->getMessage()])->withInput();
+            // Retornar uma resposta JSON com erro
+            return response()->json(['error' => 'Erro ao realizar o cadastro: ' . $e->getMessage()], 400);
         }
     }
 }

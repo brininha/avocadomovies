@@ -96,4 +96,14 @@ class GeneroController extends Controller
 
         return response()->json($generos);
     }
+    public function getFilmesFaixas()
+    {
+        $faixasEtarias = DB::table('tbfilme')
+        ->select('tbfilme.faixaEtariaFilme', DB::raw('count(tbfilme.idFilme) as total'))
+        ->groupBy('tbfilme.faixaEtariaFilme')
+        ->get();
+
+
+        return response()->json($faixasEtarias);
+    }
 }

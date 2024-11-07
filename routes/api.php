@@ -60,6 +60,8 @@ Route::delete('/deleteContato/{id}', 'App\Http\Controllers\ContatoController@des
 
 Route::delete('/deleteGenero/{id}', 'App\Http\Controllers\GeneroController@destroy');
 
-// Route::post('/registro/cliente', 'App\Http\Controllers\ClienteController@registro');
+Route::post('/registro/cliente', 'App\Http\Controllers\ClienteController@registro');
 
-Route::get('/filmes/dados/generos', 'App\Http\Controllers\GeneroController@getFilmesGenero');
+Route::get('/filmes/dados/generos', 'App\Http\Controllers\GeneroController@getFilmesGeneros');
+
+Route::get('/filmes/dados/faixas', 'App\Http\Controllers\GeneroController@getFilmesFaixas');
